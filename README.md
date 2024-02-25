@@ -4,6 +4,7 @@ TypedPL предоставляет набор функций для работы
 **Модули:**
 - Geometry.h;
 - FPFC.h.
+
 **Разделы:**
 - GeometyLIB_Figure;
 - GeometryLIB_Expression;
