@@ -639,7 +639,24 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
+         vector<T> ToVector() {
+             vector<T> arr;
+             for (int i = 0; i < value.size(); i++)
+                 arr.push_back(value[i]);
+
+             return arr;
+         }
+
     };
+
+    template <typename T>
+    List<T> ToTypedPL_List(vector<T> a) {
+        List<T> arr;
+        for (int i = 0; i < a.size(); i++)
+            arr.Add(a[i]);
+
+        return arr;
+    }
 
     List<double> ProgressionA(double firstElem, int stepCount, double stepValue) {
         FunctionalLIB_Array::List<double> arr = { firstElem };
