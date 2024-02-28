@@ -52,9 +52,9 @@ namespace GeometryLIB_Figure {
 
     // 1. “реугольник
 
-    inline double Triangle2D_P_MiddleLine(double a, double b, double c) // периметр по средним лини€м
+    inline double Triangle2D_P_MiddleLine(double a_2, double b_2, double c_2) // периметр по средним лини€м
     {
-        return 2 * a + 2 * b + 2 * c;
+        return 2 * a_2 + 2 * b_2 + 2 * c_2;
     }
 
     inline double Triangle2D_P_TwoSide(double a, double b, double angle) // периметр по двум сторонам и углу

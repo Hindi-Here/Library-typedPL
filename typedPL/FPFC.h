@@ -311,11 +311,11 @@ namespace FunctionalLIB_Array {
             return arr;
         }
 
-        inline bool Search(T V) { // поиск значения
+        inline bool Search(T arg) { // поиск значения
             bool flag = false;
             for (int i = 0; i < value.size(); i++)
             {
-                if (value[i] == V)
+                if (value[i] == arg)
                 {
                     flag = true;
                     break;
@@ -324,12 +324,12 @@ namespace FunctionalLIB_Array {
             return flag;
         }
 
-        inline bool Search(initializer_list<T> V) { // поиск по списку значений
-            vector<T> arr = V; 
+        inline bool Search(initializer_list<T> list) { // поиск по списку значений
+            List<T> arr = list; 
             bool flag = false;
             for (int i = 0; i < value.size(); i++)
             {
-                for (int j = 0; j < arr.size(); j++)
+                for (int j = 0; j < arr.Count(); j++)
                 {
                     if (value[i] == arr[j])
                     {
@@ -341,8 +341,34 @@ namespace FunctionalLIB_Array {
             return flag;
         }
 
-        inline bool Equals(List<T> V) { // сравнение массивов
-            List<T> arr = V;
+        int SearchCount(T arg) { // поиск по аргументу
+            static int Count = 0;
+            for (int i = 0; i < value.size(); i++)
+                if (value[i] == arg)
+                    Count++;
+
+            return Count;
+        }
+
+        int SearchCount(initializer_list<T> list) { // поиск по списку значений массива
+            List<T> arr = list;
+            int Count = 0;
+            for (int i = 0; i < value.size(); i++)
+            {
+                for (int j = 0; j < arr.Count(); j++)
+                {
+                    if (value[i] == arr[j])
+                    {
+                        Count++;
+                        continue;
+                    }
+                }
+            }
+            return Count;
+        }
+
+        inline bool Equals(List<T> arr_list) { // сравнение массивов
+            List<T> arr = arr_list;
             bool flag = true;
 
             if (value.size() != arr.Count()) // проверка на размерность
@@ -425,17 +451,17 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Fill(T V) { //  Заполнение List массива
+        List& Fill(T arg) { //  Заполнение List массива
             for (int i = 0; i < value.size(); i++)
-                value[i] = V;
+                value[i] = arg;
 
             return *this;
         }
 
-        List& FillPart(T V, int start, int end) { //  Заполнение части List массива
+        List& FillPart(T arg, int start, int end) { //  Заполнение части List массива
             for (int i = 0; i < value.size(); i++)
                 if (i >= start - 1 and i <= end - 1)
-                    value[i] = V;
+                    value[i] = arg;
 
             return *this;
         }
@@ -448,8 +474,8 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Union(List<T>& arr2) { //  Объединение List массивов
-            List<T> arr = arr2;
+        List& Union(List<T>& arr_list) { //  Объединение List массивов
+            List<T> arr = arr_list;
             for (int i = 0; i < arr.Count(); i++)
                 value.push_back(arr[i]);
 
@@ -457,15 +483,18 @@ namespace FunctionalLIB_Array {
         }
 
         List& Copy() { //  копирование List массивов
-            vector<T> arr = value;
-            for (int i = 0; i < arr.size(); i++)
+            List<T> arr;
+            for (auto s : value)
+                arr.Add(s);
+
+            for (int i = 0; i < arr.Count(); i++)
                 value.push_back(arr[i]);
 
             return *this;
         }
 
         List& Copy(int length) { //  копирование N раз List массивов
-            vector<T> arr = value;
+            List<T> arr = value;
             for (int len = 0; len < length; len++)
             {
                 for (int i = 0; i < arr.size(); i++)
@@ -475,26 +504,26 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-         List& Add(T V) { // добавление элемента в List массив
-            value.push_back(V);
+         List& Add(T arg) { // добавление элемента в List массив
+            value.push_back(arg);
             return *this;
         }
 
-         List& Add(initializer_list<T> P) { // добавление списка элементов
-             List<T> arr = P;
+         List& Add(initializer_list<T> list) { // добавление списка элементов
+             List<T> arr = list;
              for (int i = 0; i < arr.Count(); i++)
                  value.push_back(arr[i]);
 
              return *this;
          }
 
-         List& AddFirst(T V) { // добавление элемента в начало
-             value.push_front(V);
+         List& AddFirst(T arg) { // добавление элемента в начало
+             value.push_front(arg);
              return *this;
          }
 
-         List& AddFirst(initializer_list<T> P) { // добавление списка элементов в начало
-             List<T> arr = P;
+         List& AddFirst(initializer_list<T> list) { // добавление списка элементов в начало
+             List<T> arr = list;
              for (int i = 0; i < arr.Count(); i++)
                  value.push_front(arr[i]);
 
@@ -511,18 +540,18 @@ namespace FunctionalLIB_Array {
              return *this;
          }
           
-         List& NewList(initializer_list<T> P) { // перезапись массива на N значения
+         List& NewList(initializer_list<T> list) { // перезапись массива на N значения
              value.clear();
-             List<T> arr = P;
+             List<T> arr = list;
              for (int i = 0; i < arr.Count(); i++)
                  value.push_back(arr[i]);
 
              return *this;
          }
 
-         List& NewList(List<T> P) { // перезапись массива на другой массив
+         List& NewList(List<T> arr_list) { // перезапись массива на другой массив
              value.clear();
-             List<T> arr = P;
+             List<T> arr = arr_list;
              for (int i = 0; i < arr.Count(); i++)
                  value.push_back(arr[i]);
 
@@ -550,9 +579,9 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& DeleteByArgs(initializer_list<T> args) { // удаление по списку значений
+         List& DeleteByArgs(initializer_list<T> list) { // удаление по списку значений
              for (auto it = value.begin(); it != value.end(); ) {
-                 if (find(args.begin(), args.end(), *it) != args.end()) {
+                 if (find(list.begin(), list.end(), *it) != list.end()) {
                      it = value.erase(it);
                  }
                  else {
@@ -563,9 +592,9 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& DeleteByArgs(List<T> args) { // удаление по списку значений List массива
+         List& DeleteByArgs(List<T> arr_list) { // удаление по списку значений List массива
              for (auto it = value.begin(); it != value.end(); ) {
-                 if (find(args.begin(), args.end(), *it) != args.end()) {
+                 if (find(arr_list.begin(), arr_list.end(), *it) != arr_list.end()) {
                      it = value.erase(it);
                  }
                  else {
@@ -602,39 +631,39 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& Addition(List<T> arg) { // сложение массивов
-             int mAx = max((int)value.size(), (int)arg.Count());
+         List& Addition(List<T> arr_list) { // сложение массивов
+             int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
-                 value[i] += arg[i];
+                 value[i] += arr_list[i];
 
              return *this;
          }
 
-         List& Subtract(List<T> arg) { // вычитание массивов
-             int mAx = max((int)value.size(), (int)arg.Count());
+         List& Subtract(List<T> arr_list) { // вычитание массивов
+             int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
-                 value[i] -= arg[i];
+                 value[i] -= arr_list[i];
 
              return *this;
          }
 
-         List& Multiplication (List<T> arg) { // умножение массивов
-             int mAx = max((int)value.size(), (int)arg.Count());
+         List& Multiplication (List<T> arr_list) { // умножение массивов
+             int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
-                 value[i] *= arg[i];
+                 value[i] *= arr_list[i];
 
              return *this;
          }
 
-         List& Divide(List<T> arg) { // деление массивов
-             int mAx = max((int)value.size(), (int)arg.Count());
+         List& Divide(List<T> arr_list) { // деление массивов
+             int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
-                 if(arg != 0)
-                    value[i] /= arg[i];
+                 if(arr_list[i] != 0)
+                    value[i] /= arr_list[i];
 
              return *this;
          }
@@ -650,10 +679,10 @@ namespace FunctionalLIB_Array {
     };
 
     template <typename T>
-    List<T> ToTypedPL_List(vector<T> a) {
+    List<T> ToTypedPL_List(vector<T> vect) {
         List<T> arr;
-        for (int i = 0; i < a.size(); i++)
-            arr.Add(a[i]);
+        for (int i = 0; i < vect.size(); i++)
+            arr.Add(vect[i]);
 
         return arr;
     }
@@ -866,11 +895,11 @@ namespace FunctionalLIB_String {
         }
 
         bool Search(initializer_list<char> arg) { // поиск по списку значений
-            vector<char> arr = arg;
+            List<char> arr = arg;
             bool flag = false;
             for (int i = 0; i < newSTR.length(); i++)
             {
-                for (int j = 0; j < arr.size(); j++)
+                for (int j = 0; j < arr.Count(); j++)
                 {
                     if (newSTR[i] == arr[j])
                     {
@@ -919,11 +948,11 @@ namespace FunctionalLIB_String {
         }
 
         int SearchCount(initializer_list<char> arg) { // поиск по списку значений
-            vector<char> arr = arg;
+            List<char> arr = arg;
             int Count = 0;
             for (int i = 0; i < newSTR.length(); i++)
             {
-                for (int j = 0; j < arr.size(); j++)
+                for (int j = 0; j < arr.Count(); j++)
                 {
                     if (newSTR[i] == arr[j])
                     {
