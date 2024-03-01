@@ -1,117 +1,117 @@
 #pragma once
 #include <iostream>
-#include <vector>
+
+#include <vector> // containers and algorithms
 #include <deque>
 #include <set>
 #include <algorithm>
-#include <string>
-#include <fstream>
 
-#define _USE_MATH_DEFINES
-#define _CRT_SECURE_NO_WARNINGS
-#include <math.h>
+#include <string> // string and file
+#include <fstream> 
+#include <sys/stat.h>
 
-using namespace std;
-
-#include <random> // для седьмой функии массивов
-random_device rd;
-mt19937 gen(rd());
-
-#ifdef _MSC_VER
-#if _MSC_VER >= 1910 // Проверка версии MSVC для С++17 и выше
-#ifndef NOMINMAX
-#define NOMINMAX // Исключение конфликтов с макросами windows.h
-#endif
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN // Уменьшение объема заголовков windows.h
-#endif
-#endif
-#endif
-
-#include <windows.h> // инклюд для FunctionalLIB_CustomConsole
+#include <windows.h> // for FunctionalLIB_CustomConsole
 #include <shellapi.h>
 #include <stdlib.h>
 #include <sstream>
 
-#include <regex> // регулярные выражения
+#include <regex> // regular expression
 
-#include <sys/stat.h> // статистика файла
+#define _USE_MATH_DEFINES
+#include <math.h>
 
-// Array функции
+using namespace std;
+
+#include <random> // random generation for clas List
+random_device rd;
+mt19937 gen(rd());
+
+#ifdef _MSC_VER // delete C++20 version errors in Windows.h
+#if _MSC_VER >= 1910 
+#ifndef NOMINMAX
+#define NOMINMAX 
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN 
+#endif
+#endif
+#endif
 
 namespace FunctionalLIB_Array {
 
-    // класс List (динамического) массива
+    // List container
 
-    template <class T> class List { // именование массива
+    template <class T> class List { 
     protected:
-        deque<T> value;
+        deque<T> value; // main class value
         struct structure {};
     public:
-        List() {}
+        List() {} // constructors
         List(size_t S) { value.resize(S); }
-        List(initializer_list<T> P) { value = P; } // конструктор-переменная класса
+        List(initializer_list<T> P) { value = P; } 
         ~List() {}
 
-        typename deque<T>::iterator begin() { return value.begin(); } // считывание начала массива
-        typename deque<T>::iterator end() { return value.end(); } // считывание конца массива
+        typename deque<T>::iterator begin() { return value.begin(); } // iterators for interactive with standart methods
+        typename deque<T>::iterator end() { return value.end(); } 
 
-        inline int First() { return 0; }
-        inline int Last() { return (int)value.size(); }
-        inline T FirstElement() { return value[0]; }
-        inline T LastElement() { return value[value.size() - 1]; } 
+        inline int First() { return 0; } // constant  return 0
+        inline int Last() { return (int)value.size(); } // constant return size array
+        inline T FirstElement() { return value[0]; } // return First elem
+        inline T LastElement() { return value[value.size() - 1]; } // return Last elem
 
-        T& operator[](int index) { return value[index]; } // считывание массива по индексам
+        T& operator[](int index) { return value[index]; } // indexing array : arr[0] = T 
 
-        List& operator+(T arg) { // сложение каждого элемента на аргумент
+        // operators + - * / % for argument or List array
+
+        List& operator+(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] += arg;
 
             return *this;
         }
 
-        List& operator+(List<T>& arg) { //  сложение List массивов
+        List& operator+(List<T>& arg) { 
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 value[i] += arg[i];
 
             return *this;
         }
 
-        List& operator-(T arg) { // вычитание каждого элемента на аргумент
+        List& operator-(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] -= arg;
 
             return *this;
         }
 
-        List& operator-(List<T>& arg) { //  вычитание List массивов
+        List& operator-(List<T>& arg) { 
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 value[i] -= arg[i];
 
             return *this;
         }
 
-        List& operator*(T arg) { // умножение каждого элемента на аргумент
+        List& operator*(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] *= arg;
 
             return *this;
         }
 
-        List& operator*(List<T>& arg) { //  умножение List массивов
+        List& operator*(List<T>& arg) { 
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 value[i] *= arg[i];
 
             return *this;
         }
 
-        List& operator/(T arg) { // деление каждого элемента на аргумент
+        List& operator/(T arg) { 
             if (arg == 0)
                 value.clear();
 
@@ -121,71 +121,71 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& operator/(List<T>& arg) { //  деление List массивов
+        List& operator/(List<T>& arg) { 
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 value[i] /= arg[i];
 
             return *this;
         }
 
-        List& operator%(T arg) { // остаток каждого элемента на аргумент
+        List& operator%(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] = fmod(value[i], arg);
 
             return *this;
         }
 
-        List& operator+=(T arg) { // сложение каждого элемента на аргумент
+        List& operator+=(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] += arg;
 
             return *this;
         }
 
-        List& operator+=(List<T> arg) { // сложение массивов
+        List& operator+=(List<T> arg) {
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 value[i] += arg[i];
 
             return *this;
         }
 
-        List& operator-=(T arg) { // вычитание каждого элемента на аргумент
+        List& operator-=(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] -= arg;
 
             return *this;
         }
 
-        List& operator-=(List<T> arg) { // вычитание массивов
+        List& operator-=(List<T> arg) { 
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 value[i] -= arg[i];
 
             return *this;
         }
 
-        List& operator*=(T arg) { // умножение каждого элемента на аргумент
+        List& operator*=(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] *= arg;
 
             return *this;
         }
 
-        List& operator*=(List<T> arg) { // умножение массивов
+        List& operator*=(List<T> arg) { 
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 value[i] *= arg[i];
 
             return *this;
         }
 
-        List& operator/=(T arg) { // деление каждого элемента на аргумент
+        List& operator/=(T arg) { 
             if (arg == 0)
                 value.clear();
 
@@ -195,9 +195,9 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& operator/=(List<T> arg) { // деление массивов
+        List& operator/=(List<T> arg) { 
             int mAx = max((int)value.size(), (int)arg.Count());
-            value.resize(mAx);
+            value.resize(mAx); arg.Resize(mAx);
             for (int i = 0; i < mAx; i++)
                 if(arg[i] != 0)
                     value[i] /= arg[i];
@@ -205,28 +205,28 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& operator%=(T arg) { // остаток каждого элемента на аргумент
+        List& operator%=(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] = fmod(value[i], arg);
 
             return *this;
         }
 
-        List& operator=(T arg) { // присваивание к каждому элементу
+        List& operator=(T arg) { 
             for (int i = 0; i < value.size(); i++)
                 value[i] = arg;
 
             return *this;
         }
 
-        List& operator++() { // инкримент каждого элемента
+        List& operator++() { // increment all Elem
             for (int i = 0; i < value.size(); i++)
                 value[i] += 1;
 
             return *this;
         }
 
-        List& operator--() { // дикремент каждого элемента
+        List& operator--() { // decrement all Elem
             for (int i = 0; i < value.size(); i++)
                 value[i] -= 1;
 
@@ -235,9 +235,9 @@ namespace FunctionalLIB_Array {
 
 
 
-        inline int Count() { return (int)value.size(); } // получение длины массива
+        inline int Count() { return (int)value.size(); } // return size array
 
-        inline double Sum() { // сумма элементов List массива
+        inline double Sum() { // return sum
             static double result = 0;
             for (int i = 0; i < value.size(); i++)
                 result += value[i];
@@ -245,7 +245,7 @@ namespace FunctionalLIB_Array {
             return result;
         }
 
-        inline double Avg() { // среднее элементов List массива
+        inline double Avg() { // return average 
             static double result = 0;
             for (int i = 0; i < value.size(); i++)
                 result += value[i];
@@ -253,7 +253,7 @@ namespace FunctionalLIB_Array {
             return result / value.size();
         }
 
-        inline T Max() { // максимальное значение элементов List массива
+        inline T Max() { // return MAX Elem
             static T result = value[0];
             for (int i = 1; i < value.size(); i++)
                 if (result < value[i])
@@ -262,7 +262,7 @@ namespace FunctionalLIB_Array {
             return result;
         }
 
-        inline T Min() { // минимальное значение элементов List массива
+        inline T Min() { // return MIN Elem
             static T result = value[0];
             for (int i = 1; i < value.size(); i++)
                 if (result > value[i])
@@ -271,19 +271,19 @@ namespace FunctionalLIB_Array {
             return result;
         }
 
-        inline T GetElement(size_t index) { // получение элемента по индексу
+        inline T GetElement(size_t index) { // return Elen by index
             return value[index];
         }
 
-        inline T Median() { // Медиана для List массива
+        inline T Median() { // return central Elem in array
             return value[value.size() / 2];
         }
 
-        inline void Clear() { // очистка массива
+        inline void Clear() { // clear values in array
             value.clear();
         }
 
-        List<char> ToCharArray(string text) { // разбиение строки на символьный массив
+        List<char> ToCharArray(string text) { // create char array from text
             List<char> arr;
             for (int i = 0; i < text.length(); i++)
                 arr.Add(text[i]);
@@ -291,7 +291,7 @@ namespace FunctionalLIB_Array {
             return arr;
         }
 
-        inline List<string> Split(string text, char text_spl) { // разбиение строки на подстроки
+        inline List<string> Split(string text, char text_spl) { // function for substring
             List<string> arr;
             string str;
             for (int i = 0; i < text.length(); i++)
@@ -311,7 +311,7 @@ namespace FunctionalLIB_Array {
             return arr;
         }
 
-        inline bool Search(T arg) { // поиск значения
+        inline bool Search(T arg) { // search value in array
             bool flag = false;
             for (int i = 0; i < value.size(); i++)
             {
@@ -324,7 +324,7 @@ namespace FunctionalLIB_Array {
             return flag;
         }
 
-        inline bool Search(initializer_list<T> list) { // поиск по списку значений
+        inline bool Search(initializer_list<T> list) {
             List<T> arr = list; 
             bool flag = false;
             for (int i = 0; i < value.size(); i++)
@@ -341,7 +341,7 @@ namespace FunctionalLIB_Array {
             return flag;
         }
 
-        int SearchCount(T arg) { // поиск по аргументу
+        int SearchCount(T arg) { // search coincidences in array
             static int Count = 0;
             for (int i = 0; i < value.size(); i++)
                 if (value[i] == arg)
@@ -350,7 +350,7 @@ namespace FunctionalLIB_Array {
             return Count;
         }
 
-        int SearchCount(initializer_list<T> list) { // поиск по списку значений массива
+        int SearchCount(initializer_list<T> list) { 
             List<T> arr = list;
             int Count = 0;
             for (int i = 0; i < value.size(); i++)
@@ -367,15 +367,15 @@ namespace FunctionalLIB_Array {
             return Count;
         }
 
-        inline bool Equals(List<T> arr_list) { // сравнение массивов
+        inline bool Equals(List<T> arr_list) { // comparison arr & arr
             List<T> arr = arr_list;
             bool flag = true;
 
-            if (value.size() != arr.Count()) // проверка на размерность
+            if (value.size() != arr.Count()) 
                 flag = false;
             else
             {
-                for (int i = 0; i < value.size(); i++) // проверка на значения
+                for (int i = 0; i < value.size(); i++) 
                 {
                     if (value[i] != arr[i])
                     {
@@ -386,7 +386,7 @@ namespace FunctionalLIB_Array {
             return flag;
         }
 
-        string ToString() { // конвертирование массива в строку
+        string ToString() { // convert array in text
             stringstream ss;
             for (int i = 0; i < value.size(); i++)
                 ss << value[i];
@@ -394,7 +394,12 @@ namespace FunctionalLIB_Array {
             return ss.str();
         }
 
-        List& Sort() { // сортировка List массива
+        List& Resize(int size) { // change size array
+            value.resize(size);
+            return *this;
+        }
+
+        List& Sort() { // sort 0...3...11...
             for (int i = 0; i < value.size() - 1; i++) {
                 int minIndex = i;
                 for (int j = i + 1; j < value.size(); j++) {
@@ -409,7 +414,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Converse() { // переворот List массива
+        List& Converse() { // Reverse array
             int start = 0;
             int end = (int)value.size() - 1;
 
@@ -424,7 +429,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        template <typename X = T> // инверсия численных
+        template <typename X = T> // inversion only numbers
         typename enable_if<is_arithmetic<X>::value, List<X>>::type Inversion() {
 
            for (int i = 0; i < value.size(); i++) {
@@ -435,7 +440,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& RandInt(int min, int max) { // рандомный List массив
+        List& RandInt(int min, int max) { // rand methods
             uniform_int_distribution<> generation(min, max);
             for (int i = 0; i < value.size(); i++)
                 value[i] = generation(gen);
@@ -443,7 +448,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& RandDouble(double min, double max) { // рандомный List массив
+        List& RandDouble(double min, double max) { 
             uniform_real_distribution<> generation(min, max);
             for (int i = 0; i < value.size(); i++)
                 value[i] = generation(gen);
@@ -451,14 +456,14 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Fill(T arg) { //  Заполнение List массива
+        List& Fill(T arg) { // fill the array with values
             for (int i = 0; i < value.size(); i++)
                 value[i] = arg;
 
             return *this;
         }
 
-        List& FillPart(T arg, int start, int end) { //  Заполнение части List массива
+        List& FillPart(T arg, int start, int end) { // fill range
             for (int i = 0; i < value.size(); i++)
                 if (i >= start - 1 and i <= end - 1)
                     value[i] = arg;
@@ -466,7 +471,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Change(T found, T replace) { //  Replace List массива
+        List& Change(T found, T replace) { // replace values in array
             for (int i = 0; i < value.size(); i++)
                 if (value[i] == found)
                     value[i] = replace;
@@ -474,7 +479,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Union(List<T>& arr_list) { //  Объединение List массивов
+        List& Union(List<T>& arr_list) { // arr = arr + arr
             List<T> arr = arr_list;
             for (int i = 0; i < arr.Count(); i++)
                 value.push_back(arr[i]);
@@ -482,7 +487,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Copy() { //  копирование List массивов
+        List& Copy() { // copy array : arr = arr + arr
             List<T> arr;
             for (auto s : value)
                 arr.Add(s);
@@ -493,7 +498,7 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-        List& Copy(int length) { //  копирование N раз List массивов
+        List& Copy(int length) { // copy N count
             List<T> arr = value;
             for (int len = 0; len < length; len++)
             {
@@ -504,12 +509,12 @@ namespace FunctionalLIB_Array {
             return *this;
         }
 
-         List& Add(T arg) { // добавление элемента в List массив
+         List& Add(T arg) { // add argument, list to array
             value.push_back(arg);
             return *this;
         }
 
-         List& Add(initializer_list<T> list) { // добавление списка элементов
+         List& Add(initializer_list<T> list) { 
              List<T> arr = list;
              for (int i = 0; i < arr.Count(); i++)
                  value.push_back(arr[i]);
@@ -517,12 +522,12 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& AddFirst(T arg) { // добавление элемента в начало
+         List& AddFirst(T arg) {  // add in start argument, list
              value.push_front(arg);
              return *this;
          }
 
-         List& AddFirst(initializer_list<T> list) { // добавление списка элементов в начало
+         List& AddFirst(initializer_list<T> list) { 
              List<T> arr = list;
              for (int i = 0; i < arr.Count(); i++)
                  value.push_front(arr[i]);
@@ -530,17 +535,17 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& RemoveFirst() { // удаление начала
+         List& RemoveFirst() { // delete Elem from the start
              value.pop_front();
              return *this;
          }
 
-         List& RemoveLast() { // удаление конца
+         List& RemoveLast() { // delete Elem from the end
              value.pop_back();
              return *this;
          }
           
-         List& NewList(initializer_list<T> list) { // перезапись массива на N значения
+         List& NewList(initializer_list<T> list) { 
              value.clear();
              List<T> arr = list;
              for (int i = 0; i < arr.Count(); i++)
@@ -549,7 +554,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& NewList(List<T> arr_list) { // перезапись массива на другой массив
+         List& NewList(List<T> arr_list) { // clear last array and fill new array
              value.clear();
              List<T> arr = arr_list;
              for (int i = 0; i < arr.Count(); i++)
@@ -558,12 +563,12 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& DeleteByIndex(int index) { // удаление по индексу
+         List& DeleteByIndex(int index) {  // delete Elem by index number or range
              value.erase(value.begin() + index);
              return *this;
          }
 
-         List& DeleteByIndex(int start, int end) { // удаление по индекс диапозону
+         List& DeleteByIndex(int start, int end) { 
              for (int i = end; i >= start; i--) {
                  value.erase(value.begin() + i);
              }
@@ -571,7 +576,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& DeleteByArgs(T arg) { // удаление по значению
+         List& DeleteByArgs(T arg) { // delete argument or list arguments from array
              for (int i = 0; i < value.size(); i++)
                  if (value[i] == arg)
                      value.erase(value.begin() + i);
@@ -579,7 +584,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& DeleteByArgs(initializer_list<T> list) { // удаление по списку значений
+         List& DeleteByArgs(initializer_list<T> list) { 
              for (auto it = value.begin(); it != value.end(); ) {
                  if (find(list.begin(), list.end(), *it) != list.end()) {
                      it = value.erase(it);
@@ -592,7 +597,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& DeleteByArgs(List<T> arr_list) { // удаление по списку значений List массива
+         List& DeleteByArgs(List<T> arr_list) { 
              for (auto it = value.begin(); it != value.end(); ) {
                  if (find(arr_list.begin(), arr_list.end(), *it) != arr_list.end()) {
                      it = value.erase(it);
@@ -605,19 +610,19 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& CutStart(int length) { // обрезка с начала массива
+         List& CutStart(int length) { // cut from the start array
              value.erase(value.begin(), value.begin() + length);
 
              return *this;
          }
 
-         List& CutEnd(int length) { // обрезка с конца массива
+         List& CutEnd(int length) { // cut from the end array
              value.erase(value.end() - length, value.end());
 
              return *this;
          }
 
-         List& Unique() { // удаление повторяющихся символов
+         List& Unique() { // clear repeat Elem
              set<T> arr;
 
              for (auto s : value)
@@ -631,7 +636,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& Addition(List<T> arr_list) { // сложение массивов
+         List& Addition(List<T> arr_list) { // arr + arr
              int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
@@ -640,7 +645,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& Subtract(List<T> arr_list) { // вычитание массивов
+         List& Subtract(List<T> arr_list) { // arr - arr
              int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
@@ -649,7 +654,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& Multiplication (List<T> arr_list) { // умножение массивов
+         List& Multiplication (List<T> arr_list) { // arr * arr
              int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
@@ -658,7 +663,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         List& Divide(List<T> arr_list) { // деление массивов
+         List& Divide(List<T> arr_list) { // arr / arr
              int mAx = max((int)value.size(), (int)arr_list.Count());
              value.resize(mAx);
              for (int i = 0; i < mAx; i++)
@@ -668,7 +673,7 @@ namespace FunctionalLIB_Array {
              return *this;
          }
 
-         vector<T> ToVector() {
+         vector<T> ToVector() { // convert List to vector
              vector<T> arr;
              for (int i = 0; i < value.size(); i++)
                  arr.push_back(value[i]);
@@ -679,7 +684,7 @@ namespace FunctionalLIB_Array {
     };
 
     template <typename T>
-    List<T> ToTypedPL_List(vector<T> vect) {
+    List<T> ToTypedPL_List(vector<T> vect) { // convert vector to List
         List<T> arr;
         for (int i = 0; i < vect.size(); i++)
             arr.Add(vect[i]);
@@ -687,7 +692,7 @@ namespace FunctionalLIB_Array {
         return arr;
     }
 
-    List<double> ProgressionA(double firstElem, int stepCount, double stepValue) {
+    List<double> ProgressionA(double firstElem, int stepCount, double stepValue) { // arifmetic progression
         FunctionalLIB_Array::List<double> arr = { firstElem };
         for (int i = 1; i < stepCount; i++)
         {
@@ -697,7 +702,7 @@ namespace FunctionalLIB_Array {
         return arr;
     }
 
-    List<double> ProgressionG(double firstElem, int stepCount, double stepValue) {
+    List<double> ProgressionG(double firstElem, int stepCount, double stepValue) { // geometry progression
         FunctionalLIB_Array::List<double> arr = { firstElem };
         for (int i = 1; i < stepCount; i++)
         {
@@ -709,30 +714,30 @@ namespace FunctionalLIB_Array {
 
 } 
 
-// String функции
+// String function
 
 namespace FunctionalLIB_String {
 
     class String : FunctionalLIB_Array::List<char>, FunctionalLIB_Array::List<string> {
     private:
-        string newSTR;
+        string newSTR; // main value in class
         friend String ToTypedPL_String() {};
     public:
-        String() {};
+        String() {}; // constructors
         String(const char* value) { newSTR = (string)value; };
         ~String() {}
 
-        friend ostream& operator<<(ostream& os, const String& str) { // вывод на экран через cout
+        friend ostream& operator<<(ostream& os, const String& str) { // output string
             os << str.newSTR;
             return os;
         }
 
-        friend istream& operator>>(istream& input, String& str) { // ввод переменной через cin
+        friend istream& operator>>(istream& input, String& str) { // cin >> string
             input >> str.newSTR;
             return input;
         }
 
-        bool operator!=(const String& str) { return newSTR != str.newSTR; }
+        bool operator!=(const String& str) { return newSTR != str.newSTR; } // for IF operators
 
         bool operator==(const String& str) { return newSTR == str.newSTR; }
 
@@ -784,7 +789,7 @@ namespace FunctionalLIB_String {
 
 
 
-        template <typename T> String ToTypedPL_String(T str) {}; // прототипы функций
+        template <typename T> String ToTypedPL_String(T str) {}; 
 
         String& operator-(int len) { newSTR.erase(newSTR.end() - len, newSTR.end()); return *this; } // Str - 2 = S
 
@@ -798,7 +803,7 @@ namespace FunctionalLIB_String {
                 newSTR.replace(pos, s.length(), "");
             }
             return *this;
-        } // Str - St = r
+        } 
 
         String& operator-(string text) {
             size_t pos = newSTR.find(text);
@@ -806,7 +811,7 @@ namespace FunctionalLIB_String {
                 newSTR.replace(pos, text.length(), "");
             }
             return *this;
-        } // Str - St = r
+        } 
 
         String& operator-(String text) { 
             string s = text.ToString();
@@ -815,43 +820,43 @@ namespace FunctionalLIB_String {
                 newSTR.replace(pos, s.length(), "");
             }
             return *this;
-        } // Str - St = r
+        } 
 
 
 
         String& operator/(int KF) {
             if (KF == 0) { newSTR.clear(); }
-            newSTR.erase(newSTR.end() - newSTR.length() / KF, newSTR.end()); return *this; } // Str / 1 = NULL
+            newSTR.erase(newSTR.end() - newSTR.length() / KF, newSTR.end()); return *this; } // Str / 0,1 = NULL
 
 
 
-        void Print() const { // вывод на экран текста
+        void Print() const { // outpur String 
             cout << newSTR;
         }
 
-        void Print(const char* text) const { // вывод на экран текста
+        void Print(const char* text) const { 
             cout << newSTR << text;
         }
 
-        void Print(string text) const { // вывод на экран текста
+        void Print(string text) const { 
             cout << newSTR << text;
         }
 
-        void Print(String text) const { // вывод на экран текста
+        void Print(String text) const { 
             cout << newSTR << text;
         }
 
-        string ToString() const { // конвертирование в строку string из типа класса
+        string ToString() const {  // convert String in string
            return string(newSTR);
         }
 
-        template <typename T> string ToString(T arg) { // конвертирование аргумента в строку
+        template <typename T> string ToString(T arg) {
             stringstream ss;
             ss << newSTR << arg;
             return ss.str();
         }
 
-        template <typename T> string ToString(initializer_list<T> arg) { // конвертирование списка в строку
+        template <typename T> string ToString(initializer_list<T> arg) { 
             List<T> arr = arg;
             stringstream ss;
             ss << newSTR;
@@ -861,7 +866,7 @@ namespace FunctionalLIB_String {
             return ss.str();
         }
 
-        template <typename T> string ToString(List<T> arg)  { // конвертирование массива в строку
+        template <typename T> string ToString(List<T> arg)  { 
             stringstream ss;
             ss << newSTR;
             for (int i = 0; i < arg.Count(); i++)
@@ -870,11 +875,11 @@ namespace FunctionalLIB_String {
             return ss.str();
         }
         
-        int Length() { return (int)newSTR.length(); } // длина строки
+        int Length() { return (int)newSTR.length(); } // return symbols count
 
-        void Clear() { newSTR.clear(); } // очистка строки
+        void Clear() { newSTR.clear(); } // cleat text
 
-        bool Search(char symbol) { // поиск по символу
+        bool Search(char symbol) { // search values in text
             bool flag = false;
             for (int i = 0; i < newSTR.length(); i++)
             {
@@ -886,7 +891,7 @@ namespace FunctionalLIB_String {
             return flag;
         }
 
-        bool Search(string text) { // поиск по строке
+        bool Search(string text) { 
             size_t pos = newSTR.find(text);
             if (pos != string::npos)
                 return true;
@@ -894,7 +899,7 @@ namespace FunctionalLIB_String {
                 return false;
         }
 
-        bool Search(initializer_list<char> arg) { // поиск по списку значений
+        bool Search(initializer_list<char> arg) { 
             List<char> arr = arg;
             bool flag = false;
             for (int i = 0; i < newSTR.length(); i++)
@@ -911,7 +916,7 @@ namespace FunctionalLIB_String {
             return flag;
         }
 
-        bool Search(List<char> arg) { // поиск по списку значений
+        bool Search(List<char> arg) { 
             List<char> arr = arg;
             bool flag = false;
             for (int i = 0; i < newSTR.length(); i++)
@@ -928,7 +933,7 @@ namespace FunctionalLIB_String {
             return flag;
         }
 
-        int SearchCount(char symbol) { // подсчет совпадений по символу
+        int SearchCount(char symbol) { // search coincidences count
             static int Count = 0;
             for (int i = 0; i < newSTR.length(); i++)
                 if (newSTR[i] == symbol)
@@ -937,7 +942,7 @@ namespace FunctionalLIB_String {
             return Count;
         }
 
-        int SearchCount(string text) { // подсчет совпадений по строке
+        int SearchCount(string text) { 
             static int count = 0;
             size_t pos = newSTR.find(text);
             while (pos != string::npos) {
@@ -947,7 +952,7 @@ namespace FunctionalLIB_String {
             return count;
         }
 
-        int SearchCount(initializer_list<char> arg) { // поиск по списку значений
+        int SearchCount(initializer_list<char> arg) { 
             List<char> arr = arg;
             int Count = 0;
             for (int i = 0; i < newSTR.length(); i++)
@@ -964,7 +969,7 @@ namespace FunctionalLIB_String {
             return Count;
         }
 
-        int SearchCount(List<char> arg) { // поиск по списку значений
+        int SearchCount(List<char> arg) { 
             List<char> arr = arg;
             int Count = 0;
             for (int i = 0; i < newSTR.length(); i++)
@@ -981,7 +986,7 @@ namespace FunctionalLIB_String {
             return Count;
         }
 
-        bool Equals(string text) { // проверка на равнозначность
+        bool Equals(string text) { // comparison arr & arr
             bool flag = true;
 
             if (newSTR.length() != text.length()) 
@@ -999,21 +1004,21 @@ namespace FunctionalLIB_String {
             return flag;
         }
 
-        bool EqualsMax(string text) { // сравнение на максимальность
+        bool EqualsMax(string text) { 
             if (newSTR.length() > text.length())
                 return true;
             else
                 return false;
         }
 
-        bool EqualsMin(string text) { // сравнение на минимальность
+        bool EqualsMin(string text) { 
             if (newSTR.length() < text.length())
                 return true;
             else
                 return false;
         }
 
-        bool Equals(String text) { // проверка на равнозначность
+        bool Equals(String text) { 
             bool flag = true;
             string txt = text.ToString();
             if (newSTR.length() != text.Length())
@@ -1031,35 +1036,35 @@ namespace FunctionalLIB_String {
             return flag;
         }
 
-        bool EqualsMax(String text) { // сравнение на максимальность
+        bool EqualsMax(String text) { 
             if (newSTR.length() > text.Length())
                 return true;
             else
                 return false;
         }
 
-        bool EqualsMin(String text) { // сравнение на минимальность
+        bool EqualsMin(String text) { 
             if (newSTR.length() < text.Length())
                 return true;
             else
                 return false;
         }
 
-        char GetFirstElement() { // получить первый символ строки
+        char GetFirstElement() { // return First symbol
             return newSTR[0];
         }
 
-        char GetLastElement() { // получить последний символ
+        char GetLastElement() { // return Last symbol
             return newSTR[newSTR.length() - 1];
         }
 
-        char GetElement(int index) { // получение значения индекса
+        char GetElement(int index) { // get Elem by index
             for (int i = 0; i < newSTR.length(); i++)
                 if (i == index)
                     return newSTR[i];
         }
 
-        List<char> ToCharArray() { // разбиение строки на символы
+        List<char> ToCharArray() { // create List array from text
             List<char> arr;
             for (int i = 0; i < newSTR.length(); i++)
                 arr.Add(newSTR[i]);
@@ -1067,7 +1072,7 @@ namespace FunctionalLIB_String {
             return arr;
         }
 
-        List<string> Split(char symbol) { // разбиение строки на подстроки
+        List<string> Split(char symbol) { // function for substring
             List<string> arr;
             string str;
             for (int i = 0; i <  newSTR.length(); i++)
@@ -1086,10 +1091,20 @@ namespace FunctionalLIB_String {
 
             return arr;
         }
-        
-        String& Reverse() { reverse(newSTR.begin(), newSTR.end()); return *this; } // разворот строки
 
-        String& Replace(char found, char replace) { // замена символов строки
+        String& ToUpper() { // to Upper symbols
+            transform(newSTR.begin(), newSTR.end(), newSTR.begin(), ::toupper);
+            return *this;
+        }
+
+        String& ToLower() { // to Lower symbols
+            transform(newSTR.begin(), newSTR.end(), newSTR.begin(), ::tolower);
+            return *this;
+        }
+        
+        String& Reverse() { reverse(newSTR.begin(), newSTR.end()); return *this; } 
+
+        String& Replace(char found, char replace) { 
             for (int i = 0; i < newSTR.length(); i++)
                 if (newSTR[i] == found)
                     newSTR[i] = replace;
@@ -1097,17 +1112,17 @@ namespace FunctionalLIB_String {
             return *this;
         }
 
-        String& Add(string arg) { // добавление значения
+        String& Add(string arg) { // add symbols in text
             newSTR += arg;
             return *this;
         }
 
-        String& Add(char symbol) { // добавление символа
+        String& Add(char symbol) { 
             newSTR.push_back(symbol);
             return *this;
         }
 
-        template <typename T> String& Add(initializer_list<T> arg) { // добавить список
+        template <typename T> String& Add(initializer_list<T> arg) { 
             List<T> arr = arg;
             for (int i = 0; i < arr.Count(); i++)
                 newSTR += to_string(arr[i]);
@@ -1115,39 +1130,39 @@ namespace FunctionalLIB_String {
             return *this;
         }
 
-        String& AddSymbol(char symbol) { // добавление символа
+        String& AddSymbol(char symbol) { 
             newSTR.push_back(symbol);
             return *this;
         }
 
-        String& NewString(string arg) { // переназначение строки
+        String& NewString(string arg) { // clear last string and create new
             newSTR = arg;
             return *this;
         }
   
-        String& SwapString(String& text) { // свапнуть строки
+        String& SwapString(String& text) { // swap string : A = B, B = A
             String temp = *this;
             *this = text;
             text = temp; 
             return *this; 
         }
 
-        String& CutStart(int length) { // обрезка с начала массива
+        String& CutStart(int length) { // cut symbols from the start, end, or range
             newSTR.erase(newSTR.begin(), newSTR.begin() + length);
             return *this;
         }
 
-        String& CutEnd(int length) { // обрезка с конца массива
+        String& CutEnd(int length) { 
             newSTR.erase(newSTR.end() - length, newSTR.end());
             return *this;
         }
         
-        String& CutRange(int start, int end) { // обрезка в диапазоне
+        String& CutRange(int start, int end) {
             newSTR.erase(start, end);
             return *this;
         }
 
-        String& RemoveSymbol(char symbol) { // удаление символа
+        String& RemoveSymbol(char symbol) { // delete symbol, text, list from text
             for (int i = 0; i < newSTR.length(); i++)
                 if (newSTR[i] == symbol)
                     newSTR[i] = NULL;
@@ -1155,7 +1170,7 @@ namespace FunctionalLIB_String {
             return *this;
         }
 
-        String& Remove(char symbol) { // удаление символа
+        String& Remove(char symbol) { 
             for (int i = 0; i < newSTR.length(); i++)
                 if (newSTR[i] == symbol)
                     newSTR[i] = NULL;
@@ -1163,7 +1178,7 @@ namespace FunctionalLIB_String {
             return *this;
         }
 
-        String& Remove(initializer_list<char> arg) { // удаление листа символов
+        String& Remove(initializer_list<char> arg) { 
             List<char> arr = arg;
             for (int i = 0; i < newSTR.length(); i++)
             {
@@ -1177,7 +1192,7 @@ namespace FunctionalLIB_String {
             return *this;
         }
 
-        String& Remove(List<char> arg) { // удаление массива символов
+        String& Remove(List<char> arg) { 
             for (int i = 0; i < newSTR.length(); i++)
             {
                 for (int j = 0; j < arg.Count(); j++)
@@ -1207,29 +1222,29 @@ namespace FunctionalLIB_String {
             return *this;
         }
 
-        String& Remove_LastSymbol() { // удаление последнего символа символа
+        String& Remove_LastSymbol() { // delete Last symbol from text
             newSTR.pop_back();
             return *this;
         }
 
-        String& Remove_FirstSymbol() { // удаление первого символа символа
+        String& Remove_FirstSymbol() { // delete First symbol from text
             newSTR = newSTR.substr(1);
             return *this;
         }
 
-        String& RemoveA_z() { // убрать иностранные символы
+        String& RemoveA_z() { // delete group symbols from text
             regex regex("[a-zA-Z]");
             newSTR = regex_replace(newSTR, regex, "");
             return* this;
         }
 
-        String& RemoveА_я() { // убрать русские символы
+        String& RemoveА_я() { 
             regex regex("[а-яА-Я]");
             newSTR = regex_replace(newSTR, regex, "");
             return *this;
         }
 
-        String& RemoveNum() { // убрать все числовые символы
+        String& RemoveNum() { 
             regex regex("[0-9]");
             newSTR = regex_replace(newSTR, regex, "");
             return *this;
@@ -1241,31 +1256,31 @@ namespace FunctionalLIB_String {
             return*this;
         }
 
-        String& ExceptA_z() { // оставить только англ. символы
+        String& ExceptA_z() { // delete everything except method group symbols
             regex regex("[^a-zA-Z]");
             newSTR = regex_replace(newSTR, regex, "");
             return*this;
         }
 
-        String& ExceptА_я() { // оставить только русские символы
+        String& ExceptА_я() { 
             regex regex("[^а-яА-Я]");
             newSTR = regex_replace(newSTR, regex, "");
             return*this;
         }
 
-        String& ExceptNum() { // оставить только числа
+        String& ExceptNum() { 
             regex regex("[^0-9]");
             newSTR = regex_replace(newSTR, regex, "");
             return *this;
         }
 
-        String& Regular_Remove(string str) { // удаление по регулярному выражению
+        String& Regular_Remove(string str) { // expression delete
             regex regex(str);
             newSTR = regex_replace(newSTR, regex, "");
             return *this;
         }
 
-        String& Regular_Replace(string str, string replace) { // замена по регуляру
+        String& Regular_Replace(string str, string replace) { // replace in regular expression
             regex regex(str);
             newSTR = regex_replace(newSTR, regex, replace);
             return *this;
@@ -1273,7 +1288,7 @@ namespace FunctionalLIB_String {
 
     };
 
-    template <typename T> String ToTypedPL_String(T str) {
+    template <typename T> String ToTypedPL_String(T str) { // convert string to String
         stringstream ss;
         ss << str;
         return ss.str().c_str();
@@ -1281,12 +1296,12 @@ namespace FunctionalLIB_String {
 
 }
 
-// File функции
+// File function
 
 namespace FunctionalLIB_File {
     class File : FunctionalLIB_String::String{
     private:
-        string str;
+        string str; // main value in class
         struct stat fileStat {};
 
         LPCWSTR ConvertTo(string str) {
@@ -1297,40 +1312,40 @@ namespace FunctionalLIB_File {
         }
 
     public:
-        File(const char* text) { str = text; }
+        File(const char* text) { str = text; } // constructors
         File(string text) { str = text; }
         File(String text) { str = text.ToString(); }
         ~File() {}
 
-        void FileOpen() { // открытие приложений, ссылок, всего    
+        void FileOpen() {  // open program, file, link  
                 LPCWSTR result = ConvertTo(str);
                 ShellExecute(NULL, L"open", result, NULL, NULL, SW_SHOW);
         }
 
-        File& FileMove(string moveIN) { // перемещение файла
+        File& FileMove(string moveIN) {  // file change location
             LPCWSTR thisPath = ConvertTo(str);
             LPCWSTR nextPath = ConvertTo(moveIN);
             MoveFile(thisPath, nextPath);
             return *this;
         }
 
-        File& FileCreate() { // создание файла
+        File& FileCreate() { // create new file 
             ofstream write(str);
             write << "";
             return *this;
         }
 
-        void FileRemove() { // удаление файла
+        void FileRemove() { // delete existing file
             LPCWSTR newSTR = ConvertTo(str);
             DeleteFile(newSTR);
         }
 
-        File& FileRename(string newName) { // переименование файла
+        File& FileRename(string newName) { // rename existing file
             if (rename(str.c_str(), newName.c_str()) == 0)  {}
             return *this;
         }
 
-        List<string> ReadAllLines() { // считывание линий
+        List<string> ReadAllLines() { // create List<string> array, where index = line in file
             ifstream read(str);
             List<string> arr; string line;
             while (getline(read, line))
@@ -1339,7 +1354,7 @@ namespace FunctionalLIB_File {
             return arr;
         }
 
-        vector<string> ReadAllLines_Vector() { // считывание линий для вектора
+        vector<string> ReadAllLines_Vector() { // create vector<string> array, where index = line in file
             ifstream read(str);
             vector<string> arr; string line;
             while (getline(read, line))
@@ -1348,7 +1363,7 @@ namespace FunctionalLIB_File {
             return arr;
         }
 
-        string ReadAllText() { // считывание всего текста
+        string ReadAllText() { // create string from file content
             ifstream read(str);
             string a; string line;
             while (getline(read, line))
@@ -1357,19 +1372,19 @@ namespace FunctionalLIB_File {
             return a;
         }
 
-        template <typename T> File& WriteAllText(T text) { // запись текста
+        template <typename T> File& WriteAllText(T text) { // write info in file
             ofstream write(str);
             write << text;
             return *this;
         }
 
-        template <typename T> File& WriteAllText(T text, string format) { // запись текста с форматирование
+        template <typename T> File& WriteAllText(T text, string format) { 
             ofstream write(str);
             write << text << format;
             return *this;
         }
 
-        template <typename T> File& WriteAllLines(List<T> arr) { // запись масисва данных построчно
+        template <typename T> File& WriteAllLines(List<T> arr) { // write info in file and go to new line
             ofstream write(str);
             for (auto s : arr)
                 write << s << "\n";
@@ -1393,19 +1408,19 @@ namespace FunctionalLIB_File {
             return *this;
         }
 
-        template <typename T> File& AppendAllText(T text) { // добавление данных
+        template <typename T> File& AppendAllText(T text) { // add info in file
             ofstream write(str, ios::app);
             write << text;
             return *this;
         }
 
-        template <typename T> File& AppendAllText(T text, string format) { // добавление данных с форматом
+        template <typename T> File& AppendAllText(T text, string format) { 
             ofstream write(str, ios::app);
             write << text << format;
             return *this;
         }
 
-        template <typename T> File& AppendAllLines(List<T> arr) { // добавление данных по массиву
+        template <typename T> File& AppendAllLines(List<T> arr) { 
             ofstream write(str, ios::app);
             for (auto s : arr)
                 write << s << "\n";
@@ -1429,9 +1444,9 @@ namespace FunctionalLIB_File {
             return *this;
         }
   
-        // Информация о файле
+        // Information about File
 
-        double GetBitSize() { // получение размеров файла в разных единицах
+        double GetBitSize() { 
             double size(0);
             if (stat(str.c_str(), &fileStat) == 0)
                 size = fileStat.st_size * 8;
@@ -1471,9 +1486,7 @@ namespace FunctionalLIB_File {
             return size;
         }
 
-   
-
-        string GetFileName() { // получение имени файла
+        string GetFileName() { 
             fstream fs(str);
             if (fs.is_open())
             {
@@ -1485,7 +1498,7 @@ namespace FunctionalLIB_File {
             return "";
         }
 
-        string GetFilePath() { // получение пути к файлу
+        string GetFilePath() { 
             fstream fs(str);
             if (fs.is_open())
             {
@@ -1497,7 +1510,7 @@ namespace FunctionalLIB_File {
             return "";
         }
 
-        string GetFileExtension() { // получение расширения файла
+        string GetFileExtension() { 
             fstream fs(str);
             if (fs.is_open())
             {
@@ -1509,7 +1522,7 @@ namespace FunctionalLIB_File {
             return "";
         }
 
-        int GetFileDepth() { // получение глубины
+        int GetFileDepth() { 
             fstream fs(str); int depth = 0;
             if (fs.is_open())
             {
@@ -1529,38 +1542,35 @@ namespace FunctionalLIB_File {
 
 namespace FunctionalLIB_CustomConsole {
 
-    // Одиночные методы (не надо вызывать экземпляр класса)
-
-    template <class T> void ThisBold(T Text) { // Жирный текст (только аргумент)
+    template <class T> void ThisBold(T Text) {  // B
         cout << "\033[1m" << Text << "\033[0m";
     }
 
-    template <class T> void ThisNormal(T Text) { // Простой текст (только аргумент)
+    template <class T> void ThisNormal(T Text) { // normal
         cout << "\033[0m" << Text << "\033[0m";
     }
 
-    template <class T> void ThisLine(T Text) { // Подчеркнутый текст (только аргумент)
+    template <class T> void ThisLine(T Text) { // U
         cout << "\033[4m" << Text << "\033[0m";
     }
 
-    template <class T> void ThisRGB(T Text, int R, int G, int B) { // RGB расцветка текста
+    template <class T> void ThisRGB(T Text, int R, int G, int B) { // RGB
             cout << "\033[38;2;" << R << ";" << G << ";" << B << "m" << Text << "\033[0m";
     }
 
-    template <class T> void ThisForegroundRGB(T Text, int R, int G, int B) { // перекраска текста в блок с цветом
+    template <class T> void ThisForegroundRGB(T Text, int R, int G, int B) { // background text
         cout << "\033[48;2;" << R << ";" << G << ";" << B << "m" << Text << "\033[0m";
     }
 
-    void Clear() {  // Очистка содержимого консоли
+    void Clear() {  
         system("cls");
     }
 
-    void Close() { // Закрытие консоли
+    void Close() { 
         exit(0);
     }
 
-
-
+    // class for setting console
 
     class ConsoleSetting {
     
@@ -1569,7 +1579,7 @@ namespace FunctionalLIB_CustomConsole {
 
         int Red = 0, Green = 0, Blue = 0;
 
-        void BG_COLOR() { // метод для определения цвета консоли
+        void BG_COLOR() { 
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
             GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
@@ -1589,9 +1599,9 @@ namespace FunctionalLIB_CustomConsole {
         };
     public:
 
-        // Рамка Window
+        // Window
 
-        ConsoleSetting& WindowShow(bool visible) { // убрать / показать рамку Window 
+        ConsoleSetting& WindowShow(bool visible) { 
             HWND console = GetConsoleWindow();
             if (!visible)
             {
@@ -1607,7 +1617,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& WindowMaxShow(bool visible) { // скрыть / показать кнопку растягивания по экрану на window рамке
+        ConsoleSetting& WindowMaxShow(bool visible) { 
             HWND consoleWindow = GetConsoleWindow();
             LONG_PTR style = GetWindowLongPtr(consoleWindow, GWL_STYLE);
             if (!visible)
@@ -1624,7 +1634,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& WindowMinShow(bool visible) { // скрыть / показать кнопку сворачивания по экрану на window рамке
+        ConsoleSetting& WindowMinShow(bool visible) { 
             HWND consoleWindow = GetConsoleWindow();
             LONG_PTR style = GetWindowLongPtr(consoleWindow, GWL_STYLE);
             if (!visible)
@@ -1641,7 +1651,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& WindowCloseShow(bool visible) { // скрыть / показать кнопку закрытия формы по экрану на window рамке
+        ConsoleSetting& WindowCloseShow(bool visible) { 
             HWND consoleWindow = GetConsoleWindow();
             if (!visible)
             {
@@ -1659,7 +1669,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& WindowPanelShow(bool visible) { // скрыть ИЛИ показать все панели на window рамке
+        ConsoleSetting& WindowPanelShow(bool visible) { 
             HWND consoleWindow = GetConsoleWindow();
             LONG_PTR style = GetWindowLongPtr(consoleWindow, GWL_STYLE);
             if (!visible)
@@ -1689,7 +1699,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& Title(const char* title) { // конструктор заголовка консоли
+        ConsoleSetting& Title(const char* title) {
             char command[100];
             strcpy_s(command, "title ");
             strcat_s(command, title);
@@ -1698,7 +1708,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& Icon(const char* path) { // иконка приложения
+        ConsoleSetting& Icon(const char* path) { 
             int pathLength = (int)strlen(path) + 1;
             int bufferSize = MultiByteToWideChar(CP_UTF8, 0, path, pathLength, NULL, 0);
             wchar_t* widePath = new wchar_t[bufferSize];
@@ -1716,7 +1726,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         } 
 
-        ConsoleSetting& ScrollBarShow(bool visible) { // убрать / показать видимость полосы прокрутки
+        ConsoleSetting& ScrollBarShow(bool visible) { 
             if (!visible)
             {
                 HWND hWnd = GetConsoleWindow();
@@ -1751,21 +1761,21 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& PositionConsole(int X, int Y) { // позиция консоли на экране
+        ConsoleSetting& PositionConsole(int X, int Y) { 
             HWND consoleWindow = GetConsoleWindow();
             SetWindowPos(consoleWindow, NULL, X, Y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
             return *this;
         }
 
-        ConsoleSetting& FullScreen() { // отображение консоли по разрешению экрана
+        ConsoleSetting& FullScreen() { 
             HWND console = GetConsoleWindow();
             ShowWindow(console, SW_MAXIMIZE);
 
             return *this;
         }
 
-        ConsoleSetting& Resize(bool can) { // запрет / разрешение на ручное изменение размеров консоли
+        ConsoleSetting& Resize(bool can) { 
             HWND consoleWindow = GetConsoleWindow();
             LONG_PTR style = GetWindowLongPtr(consoleWindow, GWL_STYLE);
             if (!can)
@@ -1782,7 +1792,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& Size(int X, int Y) { // размеры консоли
+        ConsoleSetting& Size(int X, int Y) { 
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             SMALL_RECT windowSize = { 0, 0, (SHORT)X, (SHORT)Y };
             SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
@@ -1790,7 +1800,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& SizePixel(int X, int Y) { // установка окна в пикселях
+        ConsoleSetting& SizePixel(int X, int Y) { 
             HWND console = GetConsoleWindow();
             RECT rect;
             GetWindowRect(console, &rect);
@@ -1800,7 +1810,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& MaxSize(int X, int Y) { // максимальный размер консоли
+        ConsoleSetting& MaxSize(int X, int Y) { 
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             COORD bufferSize = { (SHORT)X, (SHORT)Y };
 
@@ -1809,21 +1819,21 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        inline int GetConsoleSize_X() { // получение размеров консоли по X
+        inline int GetConsoleSize_X() { 
             CONSOLE_SCREEN_BUFFER_INFO csbi;
             GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
             int Width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
             return Width;
         }
 
-        inline int GetConsoleSize_Y() { // получение размеров консоли по Y
+        inline int GetConsoleSize_Y() { 
             CONSOLE_SCREEN_BUFFER_INFO csbi;
             GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
             int Height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
             return Height;
         }
 
-        inline int GetConsoleSizePixel_X() { // получение размеров консоли по X в пикселях
+        inline int GetConsoleSizePixel_X() { 
             HWND consoleWindow = GetConsoleWindow();
             RECT consoleRect;
 
@@ -1832,7 +1842,7 @@ namespace FunctionalLIB_CustomConsole {
             return consoleWidth;
         }
 
-        inline int GetConsoleSizePixel_Y() { // получение размеров консоли по Y в пикселях
+        inline int GetConsoleSizePixel_Y() {
             HWND consoleWindow = GetConsoleWindow();
             RECT consoleRect;
 
@@ -1841,7 +1851,7 @@ namespace FunctionalLIB_CustomConsole {
             return consoleHeight;
         }
 
-        ConsoleSetting& ChangeEncode() { // смена кодировки
+        ConsoleSetting& ChangeEncode() { 
             if (GetConsoleCP() == 1251)
             {
                 SetConsoleCP(866);
@@ -1855,15 +1865,13 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        inline int GetEncode() { // получение значения кодировки
+        inline int GetEncode() { 
             return GetConsoleCP();
         }
 
+        // Console
 
-
-        // Внутри рамки (консольное пространство)
-
-        ConsoleSetting& Opacity(double opacity) { // прозрачность консоли
+        ConsoleSetting& Opacity(double opacity) { 
 
             if (opacity >= 0 && opacity <= 1)
             {
@@ -1877,7 +1885,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& TextBG_Color() { // конструктор для перекраски текста в цвет фона
+        ConsoleSetting& TextBG_Color() { 
             BG_COLOR();
 
             cout << "\033[38;2;" << Red << ";" << Green << ";" << Blue << "m";
@@ -1898,13 +1906,13 @@ namespace FunctionalLIB_CustomConsole {
             return Blue;
         }
 
-        ConsoleSetting& TextColor(int R, int G, int B) { // конструктор цвета текста консоли по ргб
+        ConsoleSetting& TextColor(int R, int G, int B) { 
             cout << "\033[38;2;" << R << ";" << G << ";" << B << "m";
 
             return *this;
         }
 
-        ConsoleSetting& TextColor(string hexColor) { // конструктор цвета текста консоли по хексу
+        ConsoleSetting& TextColor(string hexColor) { 
             int r, g, b;
             sscanf_s(hexColor.c_str(), "%02x%02x%02x", &r, &g, &b);
             cout << "\033[38;2;" << r << ";" << g << ";" << b << "m";
@@ -1912,20 +1920,20 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& TextColor(int color) { // Random Color?
+        ConsoleSetting& TextColor(int color) { // Random Color - standart color table
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             SetConsoleTextAttribute(hConsole, color);
 
             return *this;
         }
 
-        ConsoleSetting& ForegroundColor(int R, int G, int B) { // конструктор цвета заднего фона текста консоли по ргб
+        ConsoleSetting& ForegroundColor(int R, int G, int B) { 
             cout << "\033[48;2;" << R << ";" << G << ";" << B << "m";
 
             return *this;
         }
 
-        ConsoleSetting& ForegroundColor(string hexColor) { // конструктор  цвета заднего фона текста консоли по хексу
+        ConsoleSetting& ForegroundColor(string hexColor) { 
             int r, g, b;
             sscanf_s(hexColor.c_str(), "%02x%02x%02x", &r, &g, &b);
             cout << "\033[48;2;" << r << ";" << g << ";" << b << "m";
@@ -1933,7 +1941,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& BackgroundColor(int R, int G, int B) { // конструктор цвета бекграунда консоли по ргб
+        ConsoleSetting& BackgroundColor(int R, int G, int B) {
             CONSOLE_SCREEN_BUFFER_INFOEX info{};
             info.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
 
@@ -1947,7 +1955,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& BackgroundColor(string hexColor) { // конструктор цвета бекграунда консоли по хексу
+        ConsoleSetting& BackgroundColor(string hexColor) { 
             CONSOLE_SCREEN_BUFFER_INFOEX info{};
             info.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
 
@@ -1963,7 +1971,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& FontFamily(string name) { // конструктор цвета бекграунда консоли по хексу
+        ConsoleSetting& FontFamily(string name) { 
 
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             CONSOLE_FONT_INFOEX fontInfo{};
@@ -1974,13 +1982,13 @@ namespace FunctionalLIB_CustomConsole {
             wstring wname(size, 0);
             MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, &wname[0], size);
 
-            wcscpy_s(fontInfo.FaceName, wname.c_str()); // Имя шрифта
+            wcscpy_s(fontInfo.FaceName, wname.c_str()); 
             SetCurrentConsoleFontEx(hConsole, FALSE, &fontInfo);
 
             return *this;
         }
 
-        ConsoleSetting& FontSize(int size) { // конструктор цвета бекграунда консоли по хексу
+        ConsoleSetting& FontSize(int size) { 
 
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             CONSOLE_FONT_INFOEX fontInfo{};
@@ -1995,25 +2003,25 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        ConsoleSetting& Bold() { // Жирный текст всей консоли (не работает в связке с RGB или HEX)
+        ConsoleSetting& Bold() { 
             cout << "\033[1m";
 
             return *this;
         }
 
-        ConsoleSetting& Line() { // Подчеркнутый текст всей консоли
+        ConsoleSetting& Line() { 
             cout << "\033[4m";
 
             return *this;
         }
 
-        ConsoleSetting& Normal() { // Простой текст всей консоли (Не работает в связке с RGB или HEX)
+        ConsoleSetting& Normal() { 
             cout << "\033[0m";
 
             return *this;
         }
 
-        ConsoleSetting& PositionCursor(int X, int Y) { // конструктор позиции курсора в консоли
+        ConsoleSetting& PositionCursor(int X, int Y) {
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             COORD position{};
             position.X = X;
@@ -2023,7 +2031,7 @@ namespace FunctionalLIB_CustomConsole {
             return *this;
         }
 
-        inline int GetCursorPosition_X() { // возвращает значение позиции курсора по X
+        inline int GetCursorPosition_X() { 
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             CONSOLE_SCREEN_BUFFER_INFO csbi;
             GetConsoleScreenBufferInfo(hConsole, &csbi);
@@ -2031,7 +2039,7 @@ namespace FunctionalLIB_CustomConsole {
             return cursorPosition.X;
         }
 
-        inline int GetCursorPosition_Y() {  // возвращает значение позиции курсора по Y
+        inline int GetCursorPosition_Y() {  
             hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             CONSOLE_SCREEN_BUFFER_INFO csbi;
             GetConsoleScreenBufferInfo(hConsole, &csbi);
@@ -2041,9 +2049,7 @@ namespace FunctionalLIB_CustomConsole {
 
     };
 
-
-
-    // класс анимации
+    // Animation
 
     class Animation : ConsoleSetting {
     private:
@@ -2054,14 +2060,14 @@ namespace FunctionalLIB_CustomConsole {
         string UP = "UP";
         string DOWN = "DOWN";
 
-        Animation& AnimationText(string text, int time) { // анимация текста
+        Animation& AnimationText(string text, int time) { 
             for (int i = 0; i < text.length(); i++) {
                 cout << text[i]; Sleep(time);
             }
             return *this;
         }
 
-        void ConsoleFadeIn(int time) { // появление консоли
+        void ConsoleFadeIn(int time) { 
             for (int i = 0; i < 100; i++)
             {
                 static double op = 0.0;
@@ -2070,7 +2076,7 @@ namespace FunctionalLIB_CustomConsole {
             }
         }
 
-        void ConsoleFadeOut(int time) { // исчезновение консоли
+        void ConsoleFadeOut(int time) { 
             for (int i = 0; i < 100; i++)
             {
                 static double op = 1.0;
@@ -2079,7 +2085,7 @@ namespace FunctionalLIB_CustomConsole {
             }
         }
 
-        void Console_LeftToRigth(int X, int Y) { // плавное (псевдоплавное) появление консоли слева направо
+        void Console_LeftToRigth(int X, int Y) { 
             Size(ZERO, Y);
             for (int i = 0; i < X; i++)
             {
@@ -2088,7 +2094,7 @@ namespace FunctionalLIB_CustomConsole {
             }
         }
 
-        void Console_RightToLeft(int X, int Y) { // плавное (псевдоплавное) появление консоли справа налево
+        void Console_RightToLeft(int X, int Y) { 
             Size(X, Y);
             for (int i = X; i != 0; i--)
             {
@@ -2097,7 +2103,7 @@ namespace FunctionalLIB_CustomConsole {
             }
         }
 
-        void Console_UpToDown(int X, int Y) { // плавное (псевдоплавное) появление консоли сверху вниз
+        void Console_UpToDown(int X, int Y) { 
             Size(X, ZERO);
             for (int i = 0; i < Y; i++)
             {
@@ -2106,7 +2112,7 @@ namespace FunctionalLIB_CustomConsole {
             }
         }
 
-        void Console_DownToUp(int X, int Y) { // плавное (псевдоплавное) появление консоли снизу вверх
+        void Console_DownToUp(int X, int Y) { 
             Size(X, Y);
             for (int i = Y; i != 0; i--)
             {
@@ -2115,7 +2121,7 @@ namespace FunctionalLIB_CustomConsole {
             }
         }
 
-        void Console_CustomAnimate(int X0, int X1, int Y0, int Y1, int time, string direction) { // кастомная анимация
+        void Console_CustomAnimate(int X0, int X1, int Y0, int Y1, int time, string direction) { // custom animation
             if (direction == "LEFT")
             {
                 Size(X0, Y0);
