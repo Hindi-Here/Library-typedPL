@@ -1312,6 +1312,7 @@ namespace FunctionalLIB_File {
         }
 
     public:
+        File() {};
         File(const char* text) { str = text; } // constructors
         File(string text) { str = text; }
         File(String text) { str = text.ToString(); }
