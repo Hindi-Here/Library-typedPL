@@ -1,21 +1,21 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 
-#include <vector> // containers and algorithms
+#include <vector> 
 #include <deque>
 #include <set>
 #include <algorithm>
 
-#include <string> // string and file
+#include <string> 
 #include <fstream> 
 #include <sys/stat.h>
 
-#include <windows.h> // for FunctionalLIB_CustomConsole
+#include <windows.h> 
 #include <shellapi.h>
 #include <stdlib.h>
 #include <sstream>
 
-#include <regex> // regular expression
+#include <regex> 
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -43,10 +43,9 @@ namespace FunctionalLIB_Array {
 
     template <class T> class List { 
     protected:
-        deque<T> value; // main class value
-        struct structure {};
+        deque<T> value; 
     public:
-        List() {} // constructors
+        List() {} 
         List(size_t S) { value.resize(S); }
         List(initializer_list<T> P) { value = P; } 
         ~List() {}
@@ -61,9 +60,7 @@ namespace FunctionalLIB_Array {
 
         T& operator[](int index) { return value[index]; } // indexing array : arr[0] = T 
 
-        // operators + - * / % for argument or List array
-
-        List& operator+(T arg) { 
+        List& operator+(T arg) { // operators + - * / % for argument or List array
             for (int i = 0; i < value.size(); i++)
                 value[i] += arg;
 
@@ -718,13 +715,13 @@ namespace FunctionalLIB_Array {
 
 namespace FunctionalLIB_String {
 
-    class String : FunctionalLIB_Array::List<char>, FunctionalLIB_Array::List<string> {
+    class String {
     private:
-        string newSTR; // main value in class
-        friend String ToTypedPL_String() {};
+        string newSTR; 
     public:
-        String() {}; // constructors
+        String() {}; 
         String(const char* value) { newSTR = (string)value; };
+        String(string value) { newSTR = value; };
         ~String() {}
 
         friend ostream& operator<<(ostream& os, const String& str) { // output string
@@ -857,7 +854,7 @@ namespace FunctionalLIB_String {
         }
 
         template <typename T> string ToString(initializer_list<T> arg) { 
-            List<T> arr = arg;
+            FunctionalLIB_Array::List<T> arr = arg;
             stringstream ss;
             ss << newSTR;
             for (int i = 0; i < arr.Count(); i++)
@@ -866,7 +863,7 @@ namespace FunctionalLIB_String {
             return ss.str();
         }
 
-        template <typename T> string ToString(List<T> arg)  { 
+        template <typename T> string ToString(FunctionalLIB_Array::List<T> arg)  {
             stringstream ss;
             ss << newSTR;
             for (int i = 0; i < arg.Count(); i++)
@@ -900,7 +897,7 @@ namespace FunctionalLIB_String {
         }
 
         bool Search(initializer_list<char> arg) { 
-            List<char> arr = arg;
+            FunctionalLIB_Array::List<char> arr = arg;
             bool flag = false;
             for (int i = 0; i < newSTR.length(); i++)
             {
@@ -916,8 +913,8 @@ namespace FunctionalLIB_String {
             return flag;
         }
 
-        bool Search(List<char> arg) { 
-            List<char> arr = arg;
+        bool Search(FunctionalLIB_Array::List<char> arg) {
+            FunctionalLIB_Array::List<char> arr = arg;
             bool flag = false;
             for (int i = 0; i < newSTR.length(); i++)
             {
@@ -953,7 +950,7 @@ namespace FunctionalLIB_String {
         }
 
         int SearchCount(initializer_list<char> arg) { 
-            List<char> arr = arg;
+            FunctionalLIB_Array::List<char> arr = arg;
             int Count = 0;
             for (int i = 0; i < newSTR.length(); i++)
             {
@@ -969,8 +966,8 @@ namespace FunctionalLIB_String {
             return Count;
         }
 
-        int SearchCount(List<char> arg) { 
-            List<char> arr = arg;
+        int SearchCount(FunctionalLIB_Array::List<char> arg) {
+            FunctionalLIB_Array::List<char> arr = arg;
             int Count = 0;
             for (int i = 0; i < newSTR.length(); i++)
             {
@@ -1064,16 +1061,16 @@ namespace FunctionalLIB_String {
                     return newSTR[i];
         }
 
-        List<char> ToCharArray() { // create List array from text
-            List<char> arr;
+        FunctionalLIB_Array::List<char> ToCharArray() { // create List array from text
+            FunctionalLIB_Array::List<char> arr;
             for (int i = 0; i < newSTR.length(); i++)
                 arr.Add(newSTR[i]);
 
             return arr;
         }
 
-        List<string> Split(char symbol) { // function for substring
-            List<string> arr;
+        FunctionalLIB_Array::List<string> Split(char symbol) { // function for substring
+            FunctionalLIB_Array::List<string> arr;
             string str;
             for (int i = 0; i <  newSTR.length(); i++)
             {
@@ -1123,7 +1120,7 @@ namespace FunctionalLIB_String {
         }
 
         template <typename T> String& Add(initializer_list<T> arg) { 
-            List<T> arr = arg;
+            FunctionalLIB_Array::List<T> arr = arg;
             for (int i = 0; i < arr.Count(); i++)
                 newSTR += to_string(arr[i]);
 
@@ -1179,7 +1176,7 @@ namespace FunctionalLIB_String {
         }
 
         String& Remove(initializer_list<char> arg) { 
-            List<char> arr = arg;
+            FunctionalLIB_Array::List<char> arr = arg;
             for (int i = 0; i < newSTR.length(); i++)
             {
                 for (int j = 0; j < arr.Count(); j++)
@@ -1192,7 +1189,7 @@ namespace FunctionalLIB_String {
             return *this;
         }
 
-        String& Remove(List<char> arg) { 
+        String& Remove(FunctionalLIB_Array::List<char> arg) {
             for (int i = 0; i < newSTR.length(); i++)
             {
                 for (int j = 0; j < arg.Count(); j++)
@@ -1238,8 +1235,8 @@ namespace FunctionalLIB_String {
             return* this;
         }
 
-        String& RemoveÀ_ÿ() { 
-            regex regex("[à-ÿÀ-ß]");
+        String& RemoveÐ_Ñ() { 
+            regex regex("[Ð°-ÑÐ-Ð¯]");
             newSTR = regex_replace(newSTR, regex, "");
             return *this;
         }
@@ -1251,7 +1248,7 @@ namespace FunctionalLIB_String {
         }
 
         String& RemoveAnother() {
-            regex regex("[[:punct:]¹]");
+            regex regex("[[:punct:]â„–]");
             newSTR = regex_replace(newSTR, regex, "");
             return*this;
         }
@@ -1262,8 +1259,8 @@ namespace FunctionalLIB_String {
             return*this;
         }
 
-        String& ExceptÀ_ÿ() { 
-            regex regex("[^à-ÿÀ-ß]");
+        String& ExceptÐ_Ñ() { 
+            regex regex("[^Ð°-ÑÐ-Ð¯]");
             newSTR = regex_replace(newSTR, regex, "");
             return*this;
         }
@@ -1299,9 +1296,9 @@ namespace FunctionalLIB_String {
 // File function
 
 namespace FunctionalLIB_File {
-    class File : FunctionalLIB_String::String{
+    class File {
     private:
-        string str; // main value in class
+        string str; 
         struct stat fileStat {};
 
         LPCWSTR ConvertTo(string str) {
@@ -1312,10 +1309,10 @@ namespace FunctionalLIB_File {
         }
 
     public:
-        File() {};
-        File(const char* text) { str = text; } // constructors
+        File() {} 
+        File(const char* text) { str = text; } 
         File(string text) { str = text; }
-        File(String text) { str = text.ToString(); }
+        File(FunctionalLIB_String::String text) { str = text.ToString(); }
         ~File() {}
 
         void FileOpen() {  // open program, file, link  
@@ -1346,9 +1343,9 @@ namespace FunctionalLIB_File {
             return *this;
         }
 
-        List<string> ReadAllLines() { // create List<string> array, where index = line in file
+        FunctionalLIB_Array::List<string> ReadAllLines() { // create List<string> array, where index = line in file
             ifstream read(str);
-            List<string> arr; string line;
+            FunctionalLIB_Array::List<string> arr; string line;
             while (getline(read, line))
                 arr.Add(line);
 
@@ -1385,7 +1382,7 @@ namespace FunctionalLIB_File {
             return *this;
         }
 
-        template <typename T> File& WriteAllLines(List<T> arr) { // write info in file and go to new line
+        template <typename T> File& WriteAllLines(FunctionalLIB_Array::List<T> arr) { // write info in file and go to new line
             ofstream write(str);
             for (auto s : arr)
                 write << s << "\n";
@@ -1421,7 +1418,7 @@ namespace FunctionalLIB_File {
             return *this;
         }
 
-        template <typename T> File& AppendAllLines(List<T> arr) { 
+        template <typename T> File& AppendAllLines(FunctionalLIB_Array::List<T> arr) {
             ofstream write(str, ios::app);
             for (auto s : arr)
                 write << s << "\n";

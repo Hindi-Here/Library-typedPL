@@ -1,8 +1,6 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <string>
 #include <initializer_list>
 #include <array>
 #include <sstream>
@@ -10,259 +8,257 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#ifdef _USE_CONSTANT_ // директива констант
-// МАТЕМАТИКА
-#define PI 3.14159265358979323846264338327950288 // число ПИ
-#define _PI_2_ 6.283185307179586 // число 2 ПИ
-#define I = -1 // мнимая единица
-#define _SQRT_2_ 1.41421356237309504880168872420969808 // корень 2
-#define _SQRT_3_ 1.73205080756887729352744634150587237 // корень 3
-#define _SQRT_5_ 2.23606797749978969 // корень 5
-#define E 2.7182818284590452353602874713526625 // число Эйлера (константа Непера)
-#define _LG_2_ 1.44269504088896340736 // логарифм 2
-#define _LG_10_ 0.434294481903251827651 // логарифм 10
-#define _LN_2_ 0.693147180559945309417232121458 // натуральный LOG 2
-#define _LN_10_ 2.30258509299404568401799145468 // натуральный LOG 10
-#define M 0.57721566490153286060651209008240243 // Маскерони (постоянная Эйлера)
-#define LPS 0.66274341934918158097474209710925290 // предел Лапласа
-#define _GOLD_R_ 1.61803398874989484820458683436563812 // золотое сечение
-// ВЫСШАЯ МАТЕМАТИКА
-#define APERI 1.20205690315959428539973816151144999 // Апери
-#define KINKLEN 1.2824271291006226368753425688697917 // постоянная Глейшера — Кинкелина
-#define CATALAN 0.915965594177219015054603514932384110774 // постоянная Каталана
-#define CAENA 0.64341054629 // константа Каэна
-#define DOTTY 0.73908513321516064165531208767387340 // число Дотти
-#define DICKMAN 0.624329988543550870992936 // постоянная Голубма (Дикмана)
-#define SOLDNER 1.451369234883381050283968485892027 // константа Солднера
-#define TREFETENA 0.70258 // константа Эмбри (Трефетена)
-#define TWINS 0.66016181584686957392781211001455577 // константа простых близнецов
-#define TWINS_B 1.902160583104 // константа простых близнецов по Бруно
-#define F 4.66920160910299067185320382046620161 // постоянная Фейгенбаума
-#define KHINCHIN 2.685452001065 // постоянная Хинчина
+#ifdef _USE_CONSTANT_ // РґРёСЂРµРєС‚РёРІР° РєРѕРЅСЃС‚Р°РЅС‚
+// РњРђРўР•РњРђРўРРљРђ
+#define PI 3.14159265358979323846264338327950288 // С‡РёСЃР»Рѕ РџР
+#define _PI_2_ 6.283185307179586 // С‡РёСЃР»Рѕ 2 РџР
+#define I = -1 // РјРЅРёРјР°СЏ РµРґРёРЅРёС†Р°
+#define _SQRT_2_ 1.41421356237309504880168872420969808 // РєРѕСЂРµРЅСЊ 2
+#define _SQRT_3_ 1.73205080756887729352744634150587237 // РєРѕСЂРµРЅСЊ 3
+#define _SQRT_5_ 2.23606797749978969 // РєРѕСЂРµРЅСЊ 5
+#define E 2.7182818284590452353602874713526625 // С‡РёСЃР»Рѕ Р­Р№Р»РµСЂР° (РєРѕРЅСЃС‚Р°РЅС‚Р° РќРµРїРµСЂР°)
+#define _LG_2_ 1.44269504088896340736 // Р»РѕРіР°СЂРёС„Рј 2
+#define _LG_10_ 0.434294481903251827651 // Р»РѕРіР°СЂРёС„Рј 10
+#define _LN_2_ 0.693147180559945309417232121458 // РЅР°С‚СѓСЂР°Р»СЊРЅС‹Р№ LOG 2
+#define _LN_10_ 2.30258509299404568401799145468 // РЅР°С‚СѓСЂР°Р»СЊРЅС‹Р№ LOG 10
+#define M 0.57721566490153286060651209008240243 // РњР°СЃРєРµСЂРѕРЅРё (РїРѕСЃС‚РѕСЏРЅРЅР°СЏ Р­Р№Р»РµСЂР°)
+#define LPS 0.66274341934918158097474209710925290 // РїСЂРµРґРµР» Р›Р°РїР»Р°СЃР°
+#define _GOLD_R_ 1.61803398874989484820458683436563812 // Р·РѕР»РѕС‚РѕРµ СЃРµС‡РµРЅРёРµ
+// Р’Р«РЎРЁРђРЇ РњРђРўР•РњРђРўРРљРђ
+#define APERI 1.20205690315959428539973816151144999 // РђРїРµСЂРё
+#define KINKLEN 1.2824271291006226368753425688697917 // РїРѕСЃС‚РѕСЏРЅРЅР°СЏ Р“Р»РµР№С€РµСЂР° вЂ” РљРёРЅРєРµР»РёРЅР°
+#define CATALAN 0.915965594177219015054603514932384110774 // РїРѕСЃС‚РѕСЏРЅРЅР°СЏ РљР°С‚Р°Р»Р°РЅР°
+#define CAENA 0.64341054629 // РєРѕРЅСЃС‚Р°РЅС‚Р° РљР°СЌРЅР°
+#define DOTTY 0.73908513321516064165531208767387340 // С‡РёСЃР»Рѕ Р”РѕС‚С‚Рё
+#define DICKMAN 0.624329988543550870992936 // РїРѕСЃС‚РѕСЏРЅРЅР°СЏ Р“РѕР»СѓР±РјР° (Р”РёРєРјР°РЅР°)
+#define SOLDNER 1.451369234883381050283968485892027 // РєРѕРЅСЃС‚Р°РЅС‚Р° РЎРѕР»РґРЅРµСЂР°
+#define TREFETENA 0.70258 // РєРѕРЅСЃС‚Р°РЅС‚Р° Р­РјР±СЂРё (РўСЂРµС„РµС‚РµРЅР°)
+#define TWINS 0.66016181584686957392781211001455577 // РєРѕРЅСЃС‚Р°РЅС‚Р° РїСЂРѕСЃС‚С‹С… Р±Р»РёР·РЅРµС†РѕРІ
+#define TWINS_B 1.902160583104 // РєРѕРЅСЃС‚Р°РЅС‚Р° РїСЂРѕСЃС‚С‹С… Р±Р»РёР·РЅРµС†РѕРІ РїРѕ Р‘СЂСѓРЅРѕ
+#define F 4.66920160910299067185320382046620161 // РїРѕСЃС‚РѕСЏРЅРЅР°СЏ Р¤РµР№РіРµРЅР±Р°СѓРјР°
+#define KHINCHIN 2.685452001065 // РїРѕСЃС‚РѕСЏРЅРЅР°СЏ РҐРёРЅС‡РёРЅР°
 
 #endif
 
 using namespace std;
 
-// Формулы периметров, площадей и объемов фигур
+namespace GeometryLIB_Figure { 
 
-namespace GeometryLIB_Figure {
+    // РџРµСЂРёРјРµС‚СЂС‹ С„РёРіСѓСЂ
 
-    // Периметры фигур
+    // 1. РўСЂРµСѓРіРѕР»СЊРЅРёРє
 
-    // 1. Треугольник
-
-    inline double Triangle2D_P_MiddleLine(double a_2, double b_2, double c_2) // периметр по средним линиям
+    inline double Triangle2D_P_MiddleLine(double a_2, double b_2, double c_2) // РїРµСЂРёРјРµС‚СЂ РїРѕ СЃСЂРµРґРЅРёРј Р»РёРЅРёСЏРј
     {
-        return 2 * a_2 + 2 * b_2 + 2 * c_2;
-    }
+        return 2 * a_2 + 2 * b_2 + 2 * c_2; 
+    } 
 
-    inline double Triangle2D_P_TwoSide(double a, double b, double angle) // периметр по двум сторонам и углу
+    inline double Triangle2D_P_TwoSide(double a, double b, double angle) // РїРµСЂРёРјРµС‚СЂ РїРѕ РґРІСѓРј СЃС‚РѕСЂРѕРЅР°Рј Рё СѓРіР»Сѓ
     {
         double angleR = angle * M_PI / 180.0;
         return a + b + sqrt(pow(a,2) + pow(b,2) - 2 * a * b * cos(angleR));
     }
 
-    inline double Triangle2D_P_Isosceles(double a, double b) // периметр равнобедренного
+    inline double Triangle2D_P_Isosceles(double a, double b) // РїРµСЂРёРјРµС‚СЂ СЂР°РІРЅРѕР±РµРґСЂРµРЅРЅРѕРіРѕ
     {
         return 2 * b + a;
     }
 
-    inline double Triangle2D_P_Isosceles_HeightAndMain(double a, double h) // периметр равнобедренного по высоте и основанию
+    inline double Triangle2D_P_Isosceles_HeightAndMain(double a, double h) // РїРµСЂРёРјРµС‚СЂ СЂР°РІРЅРѕР±РµРґСЂРµРЅРЅРѕРіРѕ РїРѕ РІС‹СЃРѕС‚Рµ Рё РѕСЃРЅРѕРІР°РЅРёСЋ
     {
         return a + 2 * sqrt(pow(a / 2, 2) + pow(h, 2));
     }
 
-    inline double Triangle2D_P_Isosceles_HeightAndSide(double a, double h) // периметр равнобедренного по высоте и сторонам
+    inline double Triangle2D_P_Isosceles_HeightAndSide(double a, double h) // РїРµСЂРёРјРµС‚СЂ СЂР°РІРЅРѕР±РµРґСЂРµРЅРЅРѕРіРѕ РїРѕ РІС‹СЃРѕС‚Рµ Рё СЃС‚РѕСЂРѕРЅР°Рј
     {
         return 2 * a + 2 * sqrt(pow(a, 2) - pow(h, 2));
     }
 
 
 
-    // 2. Квадрат
+    // 2. РљРІР°РґСЂР°С‚
 
-    inline double Square2D_P(double a) // периметр по стороне
+    inline double Square2D_P(double a) // РїРµСЂРёРјРµС‚СЂ РїРѕ СЃС‚РѕСЂРѕРЅРµ
     {
         return 4 * a;
     }
 
-    inline double Square2D_P_Diagonal(double d) // периметр по диагонале
+    inline double Square2D_P_Diagonal(double d) // РїРµСЂРёРјРµС‚СЂ РїРѕ РґРёР°РіРѕРЅР°Р»Рµ
     {
         return 2 * sqrt(2) * d;
     }
 
-    inline double Square2D_P_FromS(double S) // периметр от площади
+    inline double Square2D_P_FromS(double S) // РїРµСЂРёРјРµС‚СЂ РѕС‚ РїР»РѕС‰Р°РґРё
     {
         return 4 * sqrt(S);
     }
 
-    inline double Square2D_P_CircleOut(double R) // периметр по описанной окружности
+    inline double Square2D_P_CircleOut(double R) // РїРµСЂРёРјРµС‚СЂ РїРѕ РѕРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return 4 * sqrt(2) * pow(R, 2);
     }
 
-    inline double Square2D_P_CircleIn(double r) // периметр по вписанной окружности
+    inline double Square2D_P_CircleIn(double r) // РїРµСЂРёРјРµС‚СЂ РїРѕ РІРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return 8 * r;
     }
 
 
 
-    // 3. Прямоугольник
+    // 3. РџСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє
 
-    inline double Rentangle2D_P(double a, double b) // периметр по сторонам
+    inline double Rentangle2D_P(double a, double b) // РїРµСЂРёРјРµС‚СЂ РїРѕ СЃС‚РѕСЂРѕРЅР°Рј
     {
         return 2 * (a + b);
     }
 
-    inline double Rentangle2D_P_Diagonal(double a, double d) // периметр по сторонам
+    inline double Rentangle2D_P_Diagonal(double a, double d) // РїРµСЂРёРјРµС‚СЂ РїРѕ СЃС‚РѕСЂРѕРЅР°Рј
     {
         return 2 * (a + sqrt(pow(d, 2) - pow(a, 2)));
     }
 
 
 
-    // 4. Параллелограмм
+    // 4. РџР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРј
 
-    inline double Parallelogram2D_P(double a, double b) // периметр по сторонам
+    inline double Parallelogram2D_P(double a, double b) // РїРµСЂРёРјРµС‚СЂ РїРѕ СЃС‚РѕСЂРѕРЅР°Рј
     {
         return 2 * (a + b);
     }
 
-    inline double Parallelogram2D_P_Diagonal(double a, double d1, double d2) { // периметр параллелограмма по диагонали
+    inline double Parallelogram2D_P_Diagonal(double a, double d1, double d2) { // РїРµСЂРёРјРµС‚СЂ РїР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРјР° РїРѕ РґРёР°РіРѕРЅР°Р»Рё
         double sqr = 2 * pow(d1, 2) + 2 * pow(d2, 2) - 4 * pow(a, 2);
         return 2 * a + sqrt(sqr);
     }
 
-    inline double Parallelogram2D_P_Corner(double a, double h, double angle) { // периметр через угол, сторону, высоту
+    inline double Parallelogram2D_P_Corner(double a, double h, double angle) { // РїРµСЂРёРјРµС‚СЂ С‡РµСЂРµР· СѓРіРѕР», СЃС‚РѕСЂРѕРЅСѓ, РІС‹СЃРѕС‚Сѓ
         return 2 * (a + (h / sin(angle * M_PI / 180)));
     }
 
 
 
-    // 5. Ромб
+    // 5. Р РѕРјР±
 
-    inline double Rhombus2D_P(double a) // периметр ромба
+    inline double Rhombus2D_P(double a) // РїРµСЂРёРјРµС‚СЂ СЂРѕРјР±Р°
     {
         return 4 * a;
     }
 
-    inline double Rhombus2D_P_Diagonal(double d1, double d2) // периметр ромба по диагонали
+    inline double Rhombus2D_P_Diagonal(double d1, double d2) // РїРµСЂРёРјРµС‚СЂ СЂРѕРјР±Р° РїРѕ РґРёР°РіРѕРЅР°Р»Рё
     {
         return 2 * sqrt(pow(d1, 2) + pow(d2, 2));
     }
 
 
 
-    // 6. Кольцо
+    // 6. РљРѕР»СЊС†Рѕ
 
-    inline double CircleHole2D_P(double r, double R) // периметр кольца
+    inline double CircleHole2D_P(double r, double R) // РїРµСЂРёРјРµС‚СЂ РєРѕР»СЊС†Р°
     {
         return 2 * M_PI * (R + r);
     }
 
 
 
-    // 7. Многоугольники правильные
+    // 7. РњРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРєРё РїСЂР°РІРёР»СЊРЅС‹Рµ
 
-    inline double Polygon2D_P(double a, double n) // периметр правильного многоугольника
+    inline double Polygon2D_P(double a, double n) // РїРµСЂРёРјРµС‚СЂ РїСЂР°РІРёР»СЊРЅРѕРіРѕ РјРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРєР°
     {
         return a * n;
     }
 
 
 
-    // Площади фигур
+    // РџР»РѕС‰Р°РґРё С„РёРіСѓСЂ
 
-    // 1. Треугольник S
+    // 1. РўСЂРµСѓРіРѕР»СЊРЅРёРє S
 
-    inline double Triangle2D(double a, double h) // площадь треугольника
+    inline double Triangle2D(double a, double h) // РїР»РѕС‰Р°РґСЊ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
     {
         return (a * h) / 2;
     }
 
-    inline double Triangle2D_TwoSide(double a, double b, double angle) // формула по 2 сторонам и углу
+    inline double Triangle2D_TwoSide(double a, double b, double angle) // С„РѕСЂРјСѓР»Р° РїРѕ 2 СЃС‚РѕСЂРѕРЅР°Рј Рё СѓРіР»Сѓ
     {
         double angleR = angle * M_PI / 180.0;
         return (a * b * sin(angleR)) / 2;
     }
 
-    inline double Triangle2D_AllSide(double a, double b, double c) // по трем сторонам
+    inline double Triangle2D_AllSide(double a, double b, double c) // РїРѕ С‚СЂРµРј СЃС‚РѕСЂРѕРЅР°Рј
     {
         double P = (a + b + c) / 2;
         return sqrt(P * (P - a) * (P - b) * (P - c));
     }
 
-    inline double Triangle2D_CircleOut(double a, double b, double c, double R) // формула по сторонам и описанной окружности
+    inline double Triangle2D_CircleOut(double a, double b, double c, double R) // С„РѕСЂРјСѓР»Р° РїРѕ СЃС‚РѕСЂРѕРЅР°Рј Рё РѕРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return (a * b * c) / (4 * R);
     }
 
-    inline double Triangle2D_CircleIn(double a, double b, double c, double R) // формула по сторонам и вписанной окружности
+    inline double Triangle2D_CircleIn(double a, double b, double c, double R) // С„РѕСЂРјСѓР»Р° РїРѕ СЃС‚РѕСЂРѕРЅР°Рј Рё РІРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         double P = (a + b + c) / 2;
         return P * R;
     }
 
-    // Равносторонние треугольники
+    // Р Р°РІРЅРѕСЃС‚РѕСЂРѕРЅРЅРёРµ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРё
 
-    inline double Triangle2D_Equilateral_Height(double h) // по высоте равностороннего треугольника
+    inline double Triangle2D_Equilateral_Height(double h) // РїРѕ РІС‹СЃРѕС‚Рµ СЂР°РІРЅРѕСЃС‚РѕСЂРѕРЅРЅРµРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
     {
         return pow(h, 2) / sqrt(3);
     }
 
-    inline double Triangle2D_Equilateral_AllSide(double a) // по трем сторонам
+    inline double Triangle2D_Equilateral_AllSide(double a) // РїРѕ С‚СЂРµРј СЃС‚РѕСЂРѕРЅР°Рј
     {
         return sqrt(3) * pow(a, 2) / 4;
     }
 
-    inline double Triangle2D_Equilateral_CircleOut(double R) // по сторонам и описанной окружности
+    inline double Triangle2D_Equilateral_CircleOut(double R) // РїРѕ СЃС‚РѕСЂРѕРЅР°Рј Рё РѕРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return (3 * sqrt(3) * pow(R, 2)) / 4;
     }
 
-    inline double Triangle2D_Equilateral_CircleIn(double R) // по сторонам и вписанной окружности
+    inline double Triangle2D_Equilateral_CircleIn(double R) // РїРѕ СЃС‚РѕСЂРѕРЅР°Рј Рё РІРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return 3 * sqrt(3) * pow(R, 2);
     }
 
-    // Равнобедренный треугольник
+    // Р Р°РІРЅРѕР±РµРґСЂРµРЅРЅС‹Р№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє
 
-    inline double Triangle2D_Isosceles_AllSide(double a, double b) // по высоте равностороннего треугольника
+    inline double Triangle2D_Isosceles_AllSide(double a, double b) // РїРѕ РІС‹СЃРѕС‚Рµ СЂР°РІРЅРѕСЃС‚РѕСЂРѕРЅРЅРµРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
     {
         return b / 4 * sqrt(4 * pow(a, 2) - pow(b, 2));
     }
 
 
 
-    // 2. Квадрат S
+    // 2. РљРІР°РґСЂР°С‚ S
 
-    inline double Square2D(double a) // площадь квадрата
+    inline double Square2D(double a) // РїР»РѕС‰Р°РґСЊ РєРІР°РґСЂР°С‚Р°
     {
         return pow(a, 2);
     }
 
-    inline double Square2D_Diagonal(double d) // площадь квадрата с известной диагональю
+    inline double Square2D_Diagonal(double d) // РїР»РѕС‰Р°РґСЊ РєРІР°РґСЂР°С‚Р° СЃ РёР·РІРµСЃС‚РЅРѕР№ РґРёР°РіРѕРЅР°Р»СЊСЋ
     {
         return pow(d, 2) / 2;
     }
 
 
 
-    // 3. Прямоугольник S
+    // 3. РџСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє S
 
-    inline double Rentangle2D(double a, double b) // площадь прямоугольника
+    inline double Rentangle2D(double a, double b) // РїР»РѕС‰Р°РґСЊ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°
     {
         return a * b;
     }
 
-    inline double Rentangle2D_Diagonal(double a, double d) // площадь прямоугольника с известной диагональю
+    inline double Rentangle2D_Diagonal(double a, double d) // РїР»РѕС‰Р°РґСЊ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° СЃ РёР·РІРµСЃС‚РЅРѕР№ РґРёР°РіРѕРЅР°Р»СЊСЋ
     {
         return a * sqrt(pow(d, 2) - pow(a, 2));
     }
 
-    inline double Rentangle2D_DiagonalAndCorner(double d, double angle) // площадь прямоугольника с диагональ + уголь
+    inline double Rentangle2D_DiagonalAndCorner(double d, double angle) // РїР»РѕС‰Р°РґСЊ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° СЃ РґРёР°РіРѕРЅР°Р»СЊ + СѓРіРѕР»СЊ
     {
         double angleR = angle * M_PI / 180.0;
         return (pow(d, 2) * sin(angleR)) / 2;
@@ -270,19 +266,19 @@ namespace GeometryLIB_Figure {
 
 
 
-    // 4. Параллелограмм S 
+    // 4. РџР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРј S 
 
-    inline double Parallelogram2D(double a, double h) { // площадь параллелограмма 
+    inline double Parallelogram2D(double a, double h) { // РїР»РѕС‰Р°РґСЊ РїР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРјР° 
         return a * h;
     }
 
-    inline double Parallelogram2D_Corner(double a, double b, double angle) // площадь параллелограмма с известными сторонами и углом
+    inline double Parallelogram2D_Corner(double a, double b, double angle) // РїР»РѕС‰Р°РґСЊ РїР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРјР° СЃ РёР·РІРµСЃС‚РЅС‹РјРё СЃС‚РѕСЂРѕРЅР°РјРё Рё СѓРіР»РѕРј
     {
         double angleR = angle * M_PI / 180.0;
         return a * b * sin(angleR);
     }
 
-    inline double Parallelogram2D_DiagonalAndCorner(double d1, double d2, double angle) // площадь параллелограмма с диагональ + уголь
+    inline double Parallelogram2D_DiagonalAndCorner(double d1, double d2, double angle) // РїР»РѕС‰Р°РґСЊ РїР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРјР° СЃ РґРёР°РіРѕРЅР°Р»СЊ + СѓРіРѕР»СЊ
     {
         double angleR = angle * M_PI / 180.0;
         return (d1 * d2 * sin(angleR)) / 2;
@@ -290,110 +286,110 @@ namespace GeometryLIB_Figure {
 
 
 
-    // 5. Ромб S
+    // 5. Р РѕРјР± S
 
-    inline double Rhombus2D(double a, double h) // площадь ромба
+    inline double Rhombus2D(double a, double h) // РїР»РѕС‰Р°РґСЊ СЂРѕРјР±Р°
     {
         return a * h;
     }
 
-    inline double Rhombus2D_Corner(double a, double angle) // площадь ромба по стороне и углу
+    inline double Rhombus2D_Corner(double a, double angle) // РїР»РѕС‰Р°РґСЊ СЂРѕРјР±Р° РїРѕ СЃС‚РѕСЂРѕРЅРµ Рё СѓРіР»Сѓ
     {
         double angleR = angle * M_PI / 180.0;
         return pow(a, 2) * sin(angleR);
     }
 
-    inline double Rhombus2D_Diagonal(double d1, double d2) // площадь ромба по диагоналям
+    inline double Rhombus2D_Diagonal(double d1, double d2) // РїР»РѕС‰Р°РґСЊ СЂРѕРјР±Р° РїРѕ РґРёР°РіРѕРЅР°Р»СЏРј
     {
         return (d1 * d2) / 2;
     }
 
 
 
-    // 6. Трапеция S
+    // 6. РўСЂР°РїРµС†РёСЏ S
 
-    inline double Trapezoid2D(double a, double b, double h) // площадь трапеции
+    inline double Trapezoid2D(double a, double b, double h) // РїР»РѕС‰Р°РґСЊ С‚СЂР°РїРµС†РёРё
     {
         return ((a + b) * h) / 2;
     }
 
-    inline double Trapezoid2D_AllSide(double a, double b, double c, double d) // площадь трапеции по Герону 
+    inline double Trapezoid2D_AllSide(double a, double b, double c, double d) // РїР»РѕС‰Р°РґСЊ С‚СЂР°РїРµС†РёРё РїРѕ Р“РµСЂРѕРЅСѓ 
     {
         double P = (a + b + c + d) / 2;
         return ((a + b) / abs(a - b)) * sqrt((P - a) * (P - b) * (P - a - c) * (P - a - d));
     }
 
-    inline double Trapezoid2D_Diagonal(double d1, double d2, double angle) // площадь трапеции по диагонали
+    inline double Trapezoid2D_Diagonal(double d1, double d2, double angle) // РїР»РѕС‰Р°РґСЊ С‚СЂР°РїРµС†РёРё РїРѕ РґРёР°РіРѕРЅР°Р»Рё
     {
         double angleR = angle * M_PI / 180.0;
         return (d1 * d2 * sin(angleR)) / 2;
     }
 
-    inline double Trapezoid2D_MiddleLine(double MidLine, double h) // площадь трапеции по средней линии и высоте
+    inline double Trapezoid2D_MiddleLine(double MidLine, double h) // РїР»РѕС‰Р°РґСЊ С‚СЂР°РїРµС†РёРё РїРѕ СЃСЂРµРґРЅРµР№ Р»РёРЅРёРё Рё РІС‹СЃРѕС‚Рµ
     {
         return MidLine * h;
     }
 
 
 
-    // 7. Круг S
+    // 7. РљСЂСѓРі S
 
-    inline double Circle2D(double r) // площадь круга по радиусу
+    inline double Circle2D(double r) // РїР»РѕС‰Р°РґСЊ РєСЂСѓРіР° РїРѕ СЂР°РґРёСѓСЃСѓ
     {
         return M_PI * pow(r, 2);
     }
 
-    inline double Circle2D_Diameter(double d) // площадь круга по диаметру
+    inline double Circle2D_Diameter(double d) // РїР»РѕС‰Р°РґСЊ РєСЂСѓРіР° РїРѕ РґРёР°РјРµС‚СЂСѓ
     {
         return M_PI * (pow(d, 2) / 4);
     }
 
-    inline double Circle2D_CircleLength(double L) // площадь круга по длине окружности
+    inline double Circle2D_CircleLength(double L) // РїР»РѕС‰Р°РґСЊ РєСЂСѓРіР° РїРѕ РґР»РёРЅРµ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return pow(L, 2) / (4 * M_PI);
     }
 
-    inline double Circle2D_Part(double R, double angle) // площадь только части круга
+    inline double Circle2D_Part(double R, double angle) // РїР»РѕС‰Р°РґСЊ С‚РѕР»СЊРєРѕ С‡Р°СЃС‚Рё РєСЂСѓРіР°
     {
         return M_PI * pow(R, 2) * (angle / 360);
     }
 
 
 
-    // 8. Кольцо S
+    // 8. РљРѕР»СЊС†Рѕ S
 
-    inline double CircleHole2D(double r, double R) // площадь кольца
+    inline double CircleHole2D(double r, double R) // РїР»РѕС‰Р°РґСЊ РєРѕР»СЊС†Р°
     {
         return M_PI * (pow(R, 2) - pow(r, 2));
     }
 
-    inline double CircleHole2D_Diameter(double d, double D) // площадь кольца через диаметр
+    inline double CircleHole2D_Diameter(double d, double D) // РїР»РѕС‰Р°РґСЊ РєРѕР»СЊС†Р° С‡РµСЂРµР· РґРёР°РјРµС‚СЂ
     {
         return (M_PI / 4) * (pow(D, 2) - pow(d, 2));
     }
 
 
 
-    // 9. Универсальная формула площади любого "правильного" многоугольника
+    // 9. РЈРЅРёРІРµСЂСЃР°Р»СЊРЅР°СЏ С„РѕСЂРјСѓР»Р° РїР»РѕС‰Р°РґРё Р»СЋР±РѕРіРѕ "РїСЂР°РІРёР»СЊРЅРѕРіРѕ" РјРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРєР°
 
-    inline double Polygon2D_Apophemera(double P, double A) // нахождение по апофемере и периметру
+    inline double Polygon2D_Apophemera(double P, double A) // РЅР°С…РѕР¶РґРµРЅРёРµ РїРѕ Р°РїРѕС„РµРјРµСЂРµ Рё РїРµСЂРёРјРµС‚СЂСѓ
     {
         return 0.5 * P * A;
     }
 
-    inline double Polygon2D_Side(double a, double n) // нахождение по стороне и количеству сторон
+    inline double Polygon2D_Side(double a, double n) // РЅР°С…РѕР¶РґРµРЅРёРµ РїРѕ СЃС‚РѕСЂРѕРЅРµ Рё РєРѕР»РёС‡РµСЃС‚РІСѓ СЃС‚РѕСЂРѕРЅ
     {
         return (n * pow(a, 2)) / (4 * tan(M_PI / n));
     }
 
-    inline double Polygon2D_CircleIn(double r, double n) // нахождение по вписанной окружности
+    inline double Polygon2D_CircleIn(double r, double n) // РЅР°С…РѕР¶РґРµРЅРёРµ РїРѕ РІРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         double angle = 180.0 / n;
         double radians = angle * M_PI / 180.0;
         return n * pow(r, 2) * tan(radians);
     }
 
-    inline double Polygon2D_CircleOut(double r, double n) // нахождение по описанной окружности
+    inline double Polygon2D_CircleOut(double r, double n) // РЅР°С…РѕР¶РґРµРЅРёРµ РїРѕ РѕРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         double angle = 360.0 / n;
         double radians = angle * M_PI / 180.0;
@@ -402,252 +398,250 @@ namespace GeometryLIB_Figure {
 
 
 
-    // 10. Шестиугольник S
+    // 10. РЁРµСЃС‚РёСѓРіРѕР»СЊРЅРёРє S
 
-    inline double Hexagon2D_Side(double a) // площадь шестиугольника по стороне
+    inline double Hexagon2D_Side(double a) // РїР»РѕС‰Р°РґСЊ С€РµСЃС‚РёСѓРіРѕР»СЊРЅРёРєР° РїРѕ СЃС‚РѕСЂРѕРЅРµ
     {
         return (3 * sqrt(3) * pow(a, 2)) / 2;
     }
 
-    inline double Hexagon2D_CircleOut(double R) // площадь шестиугольника по описанной окружности
+    inline double Hexagon2D_CircleOut(double R) // РїР»РѕС‰Р°РґСЊ С€РµСЃС‚РёСѓРіРѕР»СЊРЅРёРєР° РїРѕ РѕРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return (3 * sqrt(3) * pow(R, 2)) / 2;
     }
 
-    inline double Hexagon2D_CircleIn(double R) // площадь шестиугольника по вписанной окружности
+    inline double Hexagon2D_CircleIn(double R) // РїР»РѕС‰Р°РґСЊ С€РµСЃС‚РёСѓРіРѕР»СЊРЅРёРєР° РїРѕ РІРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return sqrt(3) * pow(R, 2);
     }
 
-    inline double Hexagon2D_Diagonal(double D) // площадь шестиугольника по диагонали
+    inline double Hexagon2D_Diagonal(double D) // РїР»РѕС‰Р°РґСЊ С€РµСЃС‚РёСѓРіРѕР»СЊРЅРёРєР° РїРѕ РґРёР°РіРѕРЅР°Р»Рё
     {
         return (3 * sqrt(3) * pow(D, 2)) / 8;
     }
 
-    inline double Hexagon2D_ShortDiagonal(double D) // площадь шестиугольника по короткой диагонали
+    inline double Hexagon2D_ShortDiagonal(double D) // РїР»РѕС‰Р°РґСЊ С€РµСЃС‚РёСѓРіРѕР»СЊРЅРёРєР° РїРѕ РєРѕСЂРѕС‚РєРѕР№ РґРёР°РіРѕРЅР°Р»Рё
     {
         return (sqrt(3) * pow(D, 2)) / 2;
     }
 
-    inline double Hexagon2D_Perimetr(double P) // площадь шестиугольника по периметру
+    inline double Hexagon2D_Perimetr(double P) // РїР»РѕС‰Р°РґСЊ С€РµСЃС‚РёСѓРіРѕР»СЊРЅРёРєР° РїРѕ РїРµСЂРёРјРµС‚СЂСѓ
     {
         return (3 * sqrt(3) * pow(P / 6, 2)) / 2;
     }
 
 
 
-    // 11. Восьмиугольник S
+    // 11. Р’РѕСЃСЊРјРёСѓРіРѕР»СЊРЅРёРє S
 
-    inline double Octagon2D_Side(double a) // площадь восьмиугольника по стороне
+    inline double Octagon2D_Side(double a) // РїР»РѕС‰Р°РґСЊ РІРѕСЃСЊРјРёСѓРіРѕР»СЊРЅРёРєР° РїРѕ СЃС‚РѕСЂРѕРЅРµ
     {
         return 2 * pow(a, 2) * (sqrt(2) + 1);
     }
 
-    inline double Octagon2D_CircleOut(double R) // площадь восьмиугольника по описанной окружности
+    inline double Octagon2D_CircleOut(double R) // РїР»РѕС‰Р°РґСЊ РІРѕСЃСЊРјРёСѓРіРѕР»СЊРЅРёРєР° РїРѕ РѕРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return 2 * pow(R, 2) * sqrt(2);
     }
 
-    inline double Octagon2D_CircleIn(double R) // площадь восьмиугольника по вписанной окружности
+    inline double Octagon2D_CircleIn(double R) // РїР»РѕС‰Р°РґСЊ РІРѕСЃСЊРјРёСѓРіРѕР»СЊРЅРёРєР° РїРѕ РІРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     {
         return 8 * pow(R, 2) * (sqrt(2) - 1);
     }
 
 
 
-    // Объемы
+    // РћР±СЉРµРјС‹
 
-    // 1. Треугольники
+    // 1. РўСЂРµСѓРіРѕР»СЊРЅРёРєРё
 
-    inline double Triangle3D(double S, double h) // объем треугольника (тетраэдр)
+    inline double Triangle3D(double S, double h) // РѕР±СЉРµРј С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° (С‚РµС‚СЂР°СЌРґСЂ)
     {
         return (S * h) / 3;
     }
 
-    inline double Triangle3D_Equilateral(double a) // объем равностороннего треугольника (правильный тетраэдр)
+    inline double Triangle3D_Equilateral(double a) // РѕР±СЉРµРј СЂР°РІРЅРѕСЃС‚РѕСЂРѕРЅРЅРµРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° (РїСЂР°РІРёР»СЊРЅС‹Р№ С‚РµС‚СЂР°СЌРґСЂ)
     {
         return sqrt(2) * pow(a, 3) / 12;
     }
 
-    // 2. Конусы
+    // 2. РљРѕРЅСѓСЃС‹
 
-    inline double Cone3D(double r, double h) // объем конуса
+    inline double Cone3D(double r, double h) // РѕР±СЉРµРј РєРѕРЅСѓСЃР°
     {
         return M_PI * pow(r, 2) * h / 3;
     }
 
-    inline double Cone3D_Part(double R1, double R2, double h) // объем усеченного конуса
+    inline double Cone3D_Part(double R1, double R2, double h) // РѕР±СЉРµРј СѓСЃРµС‡РµРЅРЅРѕРіРѕ РєРѕРЅСѓСЃР°
     {
         double fig = h * (pow(R1, 2) + R1 * R2 + pow(R2, 2));
         return (M_PI * fig) / 3;
     }
 
-    // 3. Отдельные фигуры 
+    // 3. РћС‚РґРµР»СЊРЅС‹Рµ С„РёРіСѓСЂС‹ 
 
-    inline double Square3D(double a) // объем квадрата (куб)
+    inline double Square3D(double a) // РѕР±СЉРµРј РєРІР°РґСЂР°С‚Р° (РєСѓР±)
     {
         return pow(a, 3);
     }
 
-    inline double Rentangle3D(double a, double b, double h) // объем прямоугольника (прямоугольный параллелипипед)
+    inline double Rentangle3D(double a, double b, double h) // РѕР±СЉРµРј РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° (РїСЂСЏРјРѕСѓРіРѕР»СЊРЅС‹Р№ РїР°СЂР°Р»Р»РµР»РёРїРёРїРµРґ)
     {
         return a * b * h;
     }
 
-    inline double Parallelogram3D(double s, double h) { // объем параллелограмма (паралеллипипед)
+    inline double Parallelogram3D(double s, double h) { // РѕР±СЉРµРј РїР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРјР° (РїР°СЂР°Р»РµР»Р»РёРїРёРїРµРґ)
         return s * h;
     }
 
-    inline double Cilinder3D(double r, double h) // объем цилиндра
+    inline double Cilinder3D(double r, double h) // РѕР±СЉРµРј С†РёР»РёРЅРґСЂР°
     {
         return M_PI * pow(r, 2) * h;
     }
 
-    inline double Hexagon3D(double a, double h) // объем шестиугольника по стороне
+    inline double Hexagon3D(double a, double h) // РѕР±СЉРµРј С€РµСЃС‚РёСѓРіРѕР»СЊРЅРёРєР° РїРѕ СЃС‚РѕСЂРѕРЅРµ
     {
         return 3 * sqrt(3) / 2 * pow(a, 2) * h;
     }
 
-    // 4. Круг и кольцо
+    // 4. РљСЂСѓРі Рё РєРѕР»СЊС†Рѕ
 
-    inline double Circle3D(double r) // объем круга по радиусу (шар)
+    inline double Circle3D(double r) // РѕР±СЉРµРј РєСЂСѓРіР° РїРѕ СЂР°РґРёСѓСЃСѓ (С€Р°СЂ)
     {
         return (4 * (M_PI * pow(r, 3))) / 3;
     }
 
-    inline double Circle3D_Diameter(double d) // объем круга по диаметру (шар)
+    inline double Circle3D_Diameter(double d) // РѕР±СЉРµРј РєСЂСѓРіР° РїРѕ РґРёР°РјРµС‚СЂСѓ (С€Р°СЂ)
     {
         return M_PI * (pow(d, 3)) / 6;
     }
 
-    inline double Circle3D_CircleLength(double L) // объем круга по длина окружности (шар)
+    inline double Circle3D_CircleLength(double L) // РѕР±СЉРµРј РєСЂСѓРіР° РїРѕ РґР»РёРЅР° РѕРєСЂСѓР¶РЅРѕСЃС‚Рё (С€Р°СЂ)
     {
         return pow(L, 3) / 6 * pow(M_PI, 2);
     }
 
-    inline double CircleHole3D(double h, double R) // объем кольца
+    inline double CircleHole3D(double h, double R) // РѕР±СЉРµРј РєРѕР»СЊС†Р°
     {
         return M_PI * pow(R, 2) * h;
     }
 
-    // 5. Пирамиды
+    // 5. РџРёСЂР°РјРёРґС‹
 
-    inline double Pyramid3x3D(double a, double h)// объем пирамиды на 3 угла
+    inline double Pyramid3x3D(double a, double h)// РѕР±СЉРµРј РїРёСЂР°РјРёРґС‹ РЅР° 3 СѓРіР»Р°
     {
         return (h * pow(a, 2)) / (4 * sqrt(3));
     }
 
-    inline double Pyramid4x3D(double a, double h) // объем пирамиды на 4 угла
+    inline double Pyramid4x3D(double a, double h) // РѕР±СЉРµРј РїРёСЂР°РјРёРґС‹ РЅР° 4 СѓРіР»Р°
     {
         return (pow(a, 2) * h) / 3;
     }
 
-    inline double Pyramid5x3D(double a, double h) // объем пирамиды на 6 углов
+    inline double Pyramid5x3D(double a, double h) // РѕР±СЉРµРј РїРёСЂР°РјРёРґС‹ РЅР° 6 СѓРіР»РѕРІ
     {
         double baseArea = (5 * a * a) / (4 * tan(M_PI / 5));
         double volume = (baseArea * h) / 3;
         return volume;
     }
 
-    inline double Pyramid6x3D(double a, double h) // объем пирамиды на 6 углов
+    inline double Pyramid6x3D(double a, double h) // РѕР±СЉРµРј РїРёСЂР°РјРёРґС‹ РЅР° 6 СѓРіР»РѕРІ
     {
         return sqrt(3) / 2 * h * pow(a, 2);
     }
 
-    inline double PyramidNx3D(double a, double h, double count_angle) //N угольная пирамида
+    inline double PyramidNx3D(double a, double h, double count_angle) //N СѓРіРѕР»СЊРЅР°СЏ РїРёСЂР°РјРёРґР°
     {
         double angleR = 180.0 * M_PI / 180.0;
         return (count_angle * h * pow(a, 2)) / (12 * tan(angleR / count_angle));
     }
 
-    // 6. Призмы
+    // 6. РџСЂРёР·РјС‹
 
-    inline double Prism3x3D(double a, double h) // объем треугольной призмы
+    inline double Prism3x3D(double a, double h) // РѕР±СЉРµРј С‚СЂРµСѓРіРѕР»СЊРЅРѕР№ РїСЂРёР·РјС‹
     {
         return sqrt(3) / 4 * pow(a, 2) * h;
     }
 
-    inline double Prism4x3D(double a, double h) // объем призмы на 4 угла
+    inline double Prism4x3D(double a, double h) // РѕР±СЉРµРј РїСЂРёР·РјС‹ РЅР° 4 СѓРіР»Р°
     {
         return pow(a, 2) * h;
     }
 
-    inline double Prism5x3D(double a, double h) // объем призмы на 5 углов
+    inline double Prism5x3D(double a, double h) // РѕР±СЉРµРј РїСЂРёР·РјС‹ РЅР° 5 СѓРіР»РѕРІ
     {
         return (5 * a * a * h) / (4 * tan(M_PI / 5));
     }
 
-    inline double Prism6x3D(double a, double h) // объем призмы на 6 углов
+    inline double Prism6x3D(double a, double h) // РѕР±СЉРµРј РїСЂРёР·РјС‹ РЅР° 6 СѓРіР»РѕРІ
     {
         return (sqrt(3) * 3 / 2) * pow(a, 2) * h;
     }
 
 
 
-    // Площадь поверхности объемных фигур
+    // РџР»РѕС‰Р°РґСЊ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё РѕР±СЉРµРјРЅС‹С… С„РёРіСѓСЂ
 
-    inline double Square3D_S_Side(double a) // площадь поверхности куба по стороне
+    inline double Square3D_S_Side(double a) // РїР»РѕС‰Р°РґСЊ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё РєСѓР±Р° РїРѕ СЃС‚РѕСЂРѕРЅРµ
     {
         return 6 * pow(a, 2);
     }
 
-    inline double Square3D_S_Diagonal(double d) // площадь куба по диагонали
+    inline double Square3D_S_Diagonal(double d) // РїР»РѕС‰Р°РґСЊ РєСѓР±Р° РїРѕ РґРёР°РіРѕРЅР°Р»Рё
     {
         return 6 * d / sqrt(2);
     }
 
-    inline double Rentangle3D_S_Side(double a, double b, double h) // площадь поверхности прямоугольника
+    inline double Rentangle3D_S_Side(double a, double b, double h) // РїР»РѕС‰Р°РґСЊ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°
     {
         return 2 * a * b + a * h + b * h;
     }
 
-    inline double Circle3D_S_Radius(double R) // площадь поверхности шара по радиусу
+    inline double Circle3D_S_Radius(double R) // РїР»РѕС‰Р°РґСЊ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё С€Р°СЂР° РїРѕ СЂР°РґРёСѓСЃСѓ
     {
         return 4 * M_PI * pow(R, 2);
     }
 
-    inline double Circle3D_S_Diagonal(double D) // площадь поверхности шара по диагонали
+    inline double Circle3D_S_Diagonal(double D) // РїР»РѕС‰Р°РґСЊ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё С€Р°СЂР° РїРѕ РґРёР°РіРѕРЅР°Р»Рё
     {
         return M_PI * pow(D, 2);
     }
 
-    inline double Cone3D_SPart(double R, double l) // площади поверхности части конуса
+    inline double Cone3D_SPart(double R, double l) // РїР»РѕС‰Р°РґРё РїРѕРІРµСЂС…РЅРѕСЃС‚Рё С‡Р°СЃС‚Рё РєРѕРЅСѓСЃР°
     {
         return M_PI * R * l;
     }
 
-    inline double Cone3D_SFull(double R, double l) // площади поверхности конуса
+    inline double Cone3D_SFull(double R, double l) // РїР»РѕС‰Р°РґРё РїРѕРІРµСЂС…РЅРѕСЃС‚Рё РєРѕРЅСѓСЃР°
     {
         return M_PI * R * (R + l);
     }
 
-    inline double Cilinder3D_SPart(double R, double h) // площадь поверхности части цилиндра
+    inline double Cilinder3D_SPart(double R, double h) // РїР»РѕС‰Р°РґСЊ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё С‡Р°СЃС‚Рё С†РёР»РёРЅРґСЂР°
     {
         return 2 * M_PI * R * h;
     }
 
-    inline double Cilinder3D_SFull(double R, double h) // площадь поверхности части цилиндра
+    inline double Cilinder3D_SFull(double R, double h) // РїР»РѕС‰Р°РґСЊ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё С‡Р°СЃС‚Рё С†РёР»РёРЅРґСЂР°
     {
         return 2 * M_PI * R * (R + h);
     }
 
 
 
-    // Иные формулы:
+    // РґР»РёРЅР° РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
 
-    // длина окружности
-
-    inline double LengthCircle_Radius(double R) // по радиусу
+    inline double LengthCircle_Radius(double R) // РїРѕ СЂР°РґРёСѓСЃСѓ
     {
         return 2 * M_PI * R;
     }
 
-    inline double LengthCircle_Diametr(double D) // по диаметру
+    inline double LengthCircle_Diametr(double D) // РїРѕ РґРёР°РјРµС‚СЂСѓ
     {
         return M_PI * D;
     }
 
-    inline double LengthCircle_FromS(double S) // по площади круга
+    inline double LengthCircle_FromS(double S) // РїРѕ РїР»РѕС‰Р°РґРё РєСЂСѓРіР°
     {
         return sqrt(4 * M_PI * S);
     }
@@ -656,15 +650,13 @@ namespace GeometryLIB_Figure {
 
     // ALL FIGURE
 
-    inline double Figure2D_Points(initializer_list<double> args) { // площадь любой фигуры по точкам
+    inline double Figure2D_Points(initializer_list<double> args) { // РїР»РѕС‰Р°РґСЊ Р»СЋР±РѕР№ С„РёРіСѓСЂС‹ РїРѕ С‚РѕС‡РєР°Рј РєРѕРѕСЂРґРёРЅР°С‚
         std::vector<double> points(args);
 
-        // Проверка, что количество точек вершин кратно 2
         if (points.size() % 2 != 0) {
             return 0;
         }
 
-        // Разделение вектора на координаты x и y
         vector<double> x;
         vector<double> y;
         for (int i = 0; i < points.size(); i++) {
@@ -676,7 +668,6 @@ namespace GeometryLIB_Figure {
             }
         }
 
-        // Вычисление площади с использованием формулы Гаусса
         double area = 0.0;
         for (int i = 0; i < x.size(); i++) {
             area += (x[i] * y[(static_cast<unsigned long long>(i) + 1) % x.size()] - 
@@ -687,10 +678,10 @@ namespace GeometryLIB_Figure {
         return abs(area);
     }
 
-    inline double Figure2D_Sides(initializer_list<double> args) { // площадь любой фигуры по площади
+    inline double Figure2D_Sides(initializer_list<double> args) { // РїР»РѕС‰Р°РґСЊ Р»СЋР±РѕР№ С„РёРіСѓСЂС‹ РїРѕ СЃС‚РѕСЂРѕРЅР°Рј С„РёРіСѓСЂС‹
         vector<double> sides(args);
 
-        // Проверка, что количество точек равно или больше 3
+        // РџСЂРѕРІРµСЂРєР°, С‡С‚Рѕ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє СЂР°РІРЅРѕ РёР»Рё Р±РѕР»СЊС€Рµ 3
         if (sides.size() < 3) {
             return 0;
         }
@@ -699,7 +690,7 @@ namespace GeometryLIB_Figure {
         for (int i = 0; i < sides.size(); i++)
             P += sides[i];
 
-        P /= 2; // нахождение полупериметра
+        P /= 2; 
 
         double area = P - sides[0];
         for (int i = 1; i < sides.size(); i++) {
@@ -708,6 +699,8 @@ namespace GeometryLIB_Figure {
 
         return sqrt(area);
     }
+
+    // progression
 
     vector<double> ProgressionA(double firstElem, int stepCount, double stepValue) {
         vector<double> arr = { firstElem };
@@ -731,21 +724,17 @@ namespace GeometryLIB_Figure {
 
 }
 
-namespace GeometryLIB_Expression {
+namespace GeometryLIB_Expression { // vector && complex expression
 
-    // Vector expression
-
-    double Vector_Length(double vecLen1, double vecLen2, double angle) { // длина вектора по длинам векторов и углу
+    double Vector_Length(double vecLen1, double vecLen2, double angle) { 
         double radians= 180.0 * M_PI / 180.0; 
         return pow(vecLen1, 2) + pow(vecLen2, 2) - 2 * vecLen1 * vecLen2 * cos(radians);
     }
 
-    double Vector_ScalarMultiplication (double vecLen1, double vecLen2, double angle) { // длина вектора по длинам векторов и углу
+    double Vector_ScalarMultiplication (double vecLen1, double vecLen2, double angle) {
         double radians = 180.0 * M_PI / 180.0;
         return vecLen1 * vecLen2 * cos(radians);
     }
-
-    // Класс векторов
 
     class VectorExpression {
 
@@ -778,28 +767,28 @@ namespace GeometryLIB_Expression {
             return ss.str();
         }
          
-        double Vector_Length() { // длина вектора
+        double Vector_Length() {
             return sqrt(pow(x, 2) + pow(y, 2) + pow(z,2));
         }
 
-        double Vector_Length(VectorExpression& newVector) { // длина по точкам начала и конца
+        double Vector_Length(VectorExpression& newVector) { 
             return sqrt(pow(newVector.x - x, 2) + pow(newVector.y - y, 2) + pow(newVector.z - z, 2));
         }
 
-        double Get_Cos(VectorExpression& newVector) { // получить угол косинуса
+        double Get_Cos(VectorExpression& newVector) { 
             double first = x * newVector.x + y * newVector.y + z * newVector.z;
             double second = sqrt(pow(x, 2) + pow(y,2) + pow(x,2)) * sqrt(pow(newVector.x,2) + pow(newVector.y,2) + pow(newVector.z,2));
             return first / second;
         }
 
-        double Triangle2D_VectorMultiplication(VectorExpression& newVector) const { // площадь по векторному умножению
+        double Triangle2D_VectorMultiplication(VectorExpression& newVector) const { 
             double X = y * newVector.z - z * newVector.y;
             double Y = (x * newVector.z - z * newVector.x) * -1;
             double Z = x * newVector.y - y * newVector.x;
             return sqrt(pow(X, 2) + pow(Y, 2) + pow(Z, 2)) * 0.5;
         }
 
-        bool Equals(VectorExpression& newVector) const{ // сравнение векторов
+        bool Equals(VectorExpression& newVector) const{ 
             bool flag = false;
             if (x == newVector.x && y == newVector.y && z == newVector.z)
                 flag = true;
@@ -849,23 +838,23 @@ namespace GeometryLIB_Expression {
 
 
 
-        VectorExpression Vector_Addition(VectorExpression& newVector) { // +
+        VectorExpression Vector_Addition(VectorExpression& newVector) { 
             return VectorExpression(x + newVector.x, y + newVector.y, z + newVector.z);
         }
 
-        VectorExpression Vector_Substract(VectorExpression& newVector) { // -
+        VectorExpression Vector_Substract(VectorExpression& newVector) { 
             return VectorExpression(x - newVector.x, y - newVector.y, z - newVector.z);
         }
 
-        VectorExpression Vector_Multiplication(VectorExpression& newVector) { // *
+        VectorExpression Vector_Multiplication(VectorExpression& newVector) { 
             return VectorExpression(x * newVector.x, y * newVector.y, z * newVector.z);
         }
 
-        VectorExpression Vector_Multiplication(double K) { // * на число
+        VectorExpression Vector_Multiplication(double K) { 
             return VectorExpression(x * K, y * K, z * K);
         }
 
-        VectorExpression Vector_VectorMultiplication(VectorExpression& newVector) { // векторное произведение
+        VectorExpression Vector_VectorMultiplication(VectorExpression& newVector) { // РІРµРєС‚РѕСЂРЅРѕРµ РїСЂРѕРёР·РІРµРґРµРЅРёРµ
             return VectorExpression(y * newVector.z - z * newVector.y, 
                                    (x * newVector.z - z * newVector.x) * -1, 
                                     x * newVector.y - y * newVector.x);
@@ -873,7 +862,7 @@ namespace GeometryLIB_Expression {
 
     };
 
-    // Complex expression
+
 
     class ComplexExpression {
     private:
