@@ -16,6 +16,29 @@ TypedPL предоставляет набор функций для работы
 - FunctionalLIB_File;
 - FunctionalLIB_CustomConsole.
 
+  ```C++
+struct Message {
+    std::string PhoneA;
+    std::string PhoneB;
+    std::string Text;
+};
+
+Message messages[] = {
+    {"Anton","Troll","Hello, friend!"},
+    {"Denis","Wride","OLOLO"},
+    {"Anton","Papay","WTF?"},
+    {"Denis","Maloy","How r u?"},
+    {"Denis","Wride","Param-pareram!"},
+};
+
+int DenisUniqueContactCount =
+    from(messages).where(   [](const Message & msg) { return msg.PhoneA == "Denis"; })
+                  .distinct([](const Message & msg) { return msg.PhoneB; })
+                  .count();
+
+// DenisUniqueContactCount == 2    
+```
+
 **Раздел Geometry** специализируется на работе с геометрическими фигурами, нахождении их периметра, площади, объемов и поверхностей (используются общие формулы). Также имеется директива констант _USE_CONSTANT_, которая является расширением для _USE_MATH_DEFINES (имеет больше коснтант для разделов общей и высшей математики). Возможно базовая работа с векторами и комплексными числами.
 
 **Раздел FPFC** предоставляет инструенты для работы с контейнерами, строками, файлами, консолью. Более подробно о функциях данного блока вы можете узнать в документации проекта.
