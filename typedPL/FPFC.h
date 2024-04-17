@@ -235,7 +235,7 @@ namespace FunctionalLIB_Array {
         inline int Count() { return (int)value.size(); } // return size array
 
         inline double Sum() { // return sum
-            static double result = 0;
+            double result = 0;
             for (int i = 0; i < value.size(); i++)
                 result += value[i];
 
@@ -243,7 +243,7 @@ namespace FunctionalLIB_Array {
         }
 
         inline double Avg() { // return average 
-            static double result = 0;
+            double result = 0;
             for (int i = 0; i < value.size(); i++)
                 result += value[i];
 
@@ -251,7 +251,7 @@ namespace FunctionalLIB_Array {
         }
 
         inline T Max() { // return MAX Elem
-            static T result = value[0];
+            T result = value[0];
             for (int i = 1; i < value.size(); i++)
                 if (result < value[i])
                     result = value[i];
@@ -260,7 +260,7 @@ namespace FunctionalLIB_Array {
         }
 
         inline T Min() { // return MIN Elem
-            static T result = value[0];
+            T result = value[0];
             for (int i = 1; i < value.size(); i++)
                 if (result > value[i])
                     result = value[i];
@@ -339,7 +339,7 @@ namespace FunctionalLIB_Array {
         }
 
         int SearchCount(T arg) { // search coincidences in array
-            static int Count = 0;
+            int Count = 0;
             for (int i = 0; i < value.size(); i++)
                 if (value[i] == arg)
                     Count++;
@@ -931,7 +931,7 @@ namespace FunctionalLIB_String {
         }
 
         int SearchCount(char symbol) { // search coincidences count
-            static int Count = 0;
+            int Count = 0;
             for (int i = 0; i < newSTR.length(); i++)
                 if (newSTR[i] == symbol)
                     Count++;
