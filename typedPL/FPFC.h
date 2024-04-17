@@ -940,7 +940,7 @@ namespace FunctionalLIB_String {
         }
 
         int SearchCount(string text) { 
-            static int count = 0;
+            int count = 0;
             size_t pos = newSTR.find(text);
             while (pos != string::npos) {
                 count++;
@@ -2068,7 +2068,7 @@ namespace FunctionalLIB_CustomConsole {
         void ConsoleFadeIn(int time) { 
             for (int i = 0; i < 100; i++)
             {
-                static double op = 0.0;
+                double op = 0.0;
                 Opacity(op += 0.01);
                 Sleep(time / 100);
             }
@@ -2077,7 +2077,7 @@ namespace FunctionalLIB_CustomConsole {
         void ConsoleFadeOut(int time) { 
             for (int i = 0; i < 100; i++)
             {
-                static double op = 1.0;
+                double op = 1.0;
                 Opacity(op -= 0.01);
                 Sleep(time / 100);
             }
