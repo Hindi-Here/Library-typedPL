@@ -42,7 +42,7 @@
 
 using namespace std;
 
-namespace GeometryLIB_Figure { 
+namespace GeometryLIB_Figure {
 
     // Периметры фигур
 
@@ -50,13 +50,13 @@ namespace GeometryLIB_Figure {
 
     inline double Triangle2D_P_MiddleLine(double a_2, double b_2, double c_2) // периметр по средним линиям
     {
-        return 2 * a_2 + 2 * b_2 + 2 * c_2; 
-    } 
+        return 2 * a_2 + 2 * b_2 + 2 * c_2;
+    }
 
     inline double Triangle2D_P_TwoSide(double a, double b, double angle) // периметр по двум сторонам и углу
     {
         double angleR = angle * M_PI / 180.0;
-        return a + b + sqrt(pow(a,2) + pow(b,2) - 2 * a * b * cos(angleR));
+        return a + b + sqrt(pow(a, 2) + pow(b, 2) - 2 * a * b * cos(angleR));
     }
 
     inline double Triangle2D_P_Isosceles(double a, double b) // периметр равнобедренного
@@ -670,7 +670,7 @@ namespace GeometryLIB_Figure {
 
         double area = 0.0;
         for (int i = 0; i < x.size(); i++) {
-            area += (x[i] * y[(static_cast<unsigned long long>(i) + 1) % x.size()] - 
+            area += (x[i] * y[(static_cast<unsigned long long>(i) + 1) % x.size()] -
                 x[(static_cast<unsigned long long>(i) + 1) % x.size()] * y[i]);
         }
         area /= 2.0;
@@ -690,7 +690,7 @@ namespace GeometryLIB_Figure {
         for (int i = 0; i < sides.size(); i++)
             P += sides[i];
 
-        P /= 2; 
+        P /= 2;
 
         double area = P - sides[0];
         for (int i = 1; i < sides.size(); i++) {
@@ -726,12 +726,12 @@ namespace GeometryLIB_Figure {
 
 namespace GeometryLIB_Expression { // vector && complex expression
 
-    double Vector_Length(double vecLen1, double vecLen2, double angle) { 
-        double radians= 180.0 * M_PI / 180.0; 
+    double Vector_Length(double vecLen1, double vecLen2, double angle) {
+        double radians = 180.0 * M_PI / 180.0;
         return pow(vecLen1, 2) + pow(vecLen2, 2) - 2 * vecLen1 * vecLen2 * cos(radians);
     }
 
-    double Vector_ScalarMultiplication (double vecLen1, double vecLen2, double angle) {
+    double Vector_ScalarMultiplication(double vecLen1, double vecLen2, double angle) {
         double radians = 180.0 * M_PI / 180.0;
         return vecLen1 * vecLen2 * cos(radians);
     }
@@ -741,7 +741,7 @@ namespace GeometryLIB_Expression { // vector && complex expression
     private:
         double x = NULL, y = NULL, z = NULL;
     public:
-        VectorExpression(array<double,3> arg) { x = arg[0]; y = arg[1]; z = arg[2]; }
+        VectorExpression(array<double, 3> arg) { x = arg[0]; y = arg[1]; z = arg[2]; }
         VectorExpression(double x, double y, double z) : x(x), y(y), z(z) {  }
         VectorExpression(double x, double y) : x(x), y(y) {  }
 
@@ -759,41 +759,40 @@ namespace GeometryLIB_Expression { // vector && complex expression
 
         string Get_Expression() const {
             stringstream ss;
-            if(z != NULL)
+            if (fabs(z) < std::numeric_limits<double>::epsilon())
                 ss << "{" << x << "," << y << "," << z << "}";
             else
                 ss << "{" << x << "," << y << "}";
 
             return ss.str();
         }
-         
+
         double Vector_Length() {
-            return sqrt(pow(x, 2) + pow(y, 2) + pow(z,2));
+            return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
         }
 
-        double Vector_Length(VectorExpression& newVector) { 
+        double Vector_Length(VectorExpression& newVector) {
             return sqrt(pow(newVector.x - x, 2) + pow(newVector.y - y, 2) + pow(newVector.z - z, 2));
         }
 
-        double Get_Cos(VectorExpression& newVector) { 
+        double Get_Cos(VectorExpression& newVector) {
             double first = x * newVector.x + y * newVector.y + z * newVector.z;
-            double second = sqrt(pow(x, 2) + pow(y,2) + pow(x,2)) * sqrt(pow(newVector.x,2) + pow(newVector.y,2) + pow(newVector.z,2));
+            double second = sqrt(pow(x, 2) + pow(y, 2) + pow(x, 2)) * sqrt(pow(newVector.x, 2) + pow(newVector.y, 2) + pow(newVector.z, 2));
             return first / second;
         }
 
-        double Triangle2D_VectorMultiplication(VectorExpression& newVector) const { 
+        double Triangle2D_VectorMultiplication(VectorExpression& newVector) const {
             double X = y * newVector.z - z * newVector.y;
             double Y = (x * newVector.z - z * newVector.x) * -1;
             double Z = x * newVector.y - y * newVector.x;
             return sqrt(pow(X, 2) + pow(Y, 2) + pow(Z, 2)) * 0.5;
         }
 
-        bool Equals(VectorExpression& newVector) const{ 
-            bool flag = false;
-            if (x == newVector.x && y == newVector.y && z == newVector.z)
-                flag = true;
-
-            return flag;
+        bool Equals(VectorExpression& newVector) const {
+            const double Epsilon = 1e-5;
+            return fabs(x - newVector.x) < Epsilon &&
+                fabs(y - newVector.y) < Epsilon &&
+                fabs(z - newVector.z) < Epsilon;
         }
 
         bool EqualsMin(VectorExpression& newVector) const {
@@ -838,26 +837,26 @@ namespace GeometryLIB_Expression { // vector && complex expression
 
 
 
-        VectorExpression Vector_Addition(VectorExpression& newVector) { 
+        VectorExpression Vector_Addition(VectorExpression& newVector) {
             return VectorExpression(x + newVector.x, y + newVector.y, z + newVector.z);
         }
 
-        VectorExpression Vector_Substract(VectorExpression& newVector) { 
+        VectorExpression Vector_Substract(VectorExpression& newVector) {
             return VectorExpression(x - newVector.x, y - newVector.y, z - newVector.z);
         }
 
-        VectorExpression Vector_Multiplication(VectorExpression& newVector) { 
+        VectorExpression Vector_Multiplication(VectorExpression& newVector) {
             return VectorExpression(x * newVector.x, y * newVector.y, z * newVector.z);
         }
 
-        VectorExpression Vector_Multiplication(double K) { 
+        VectorExpression Vector_Multiplication(double K) {
             return VectorExpression(x * K, y * K, z * K);
         }
 
         VectorExpression Vector_VectorMultiplication(VectorExpression& newVector) { // векторное произведение
-            return VectorExpression(y * newVector.z - z * newVector.y, 
-                                   (x * newVector.z - z * newVector.x) * -1, 
-                                    x * newVector.y - y * newVector.x);
+            return VectorExpression(y * newVector.z - z * newVector.y,
+                (x * newVector.z - z * newVector.x) * -1,
+                x * newVector.y - y * newVector.x);
         }
 
     };
